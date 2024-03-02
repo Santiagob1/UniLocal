@@ -1,5 +1,8 @@
-package co.edu.uniquindio.unilocal.modelo.entidades;
+package co.edu.uniquindio.unilocal.modelo.documentos;
 
+import co.edu.uniquindio.unilocal.modelo.entidades.HistorialRevision;
+import co.edu.uniquindio.unilocal.modelo.entidades.Horario;
+import co.edu.uniquindio.unilocal.modelo.entidades.Ubicacion;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoRegistro;
 import co.edu.uniquindio.unilocal.modelo.enums.TipoNegocio;
 import org.springframework.data.annotation.Id;
