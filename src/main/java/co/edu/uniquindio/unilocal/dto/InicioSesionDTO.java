@@ -1,7 +1,9 @@
 package co.edu.uniquindio.unilocal.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record InicioSesionDTO(
-        String nickname,
-        String password
+        @NotBlank String nickname,
+        @NotBlank String password
 ) {
 }

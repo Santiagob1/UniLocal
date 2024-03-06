@@ -1,10 +1,12 @@
 package co.edu.uniquindio.unilocal.modelo.entidades;
 
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoNegocio;
-import org.springframework.data.annotation.Id;
-
 import java.time.LocalDateTime;
+import lombok.*;
 
+@AllArgsConstructor
+@Getter
+@Setter
 public class HistorialRevision {
 
     private String codigoModerador;

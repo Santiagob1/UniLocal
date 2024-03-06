@@ -1,7 +1,9 @@
 package co.edu.uniquindio.unilocal.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record RecuperarPasswordDTO(
-        String codigoSeguridad,
-        String contrasenaNueva
+        @NotBlank String codigoSeguridad,
+        @NotBlank String contrasenaNueva
 ) {
 }
