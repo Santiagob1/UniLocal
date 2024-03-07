@@ -30,6 +30,7 @@ public class Negocio {
     private List<Horario> horario;
     private EstadoRegistro estado;
     private List<String> imagenes;
+    private String menu;
     private List<HistorialRevision> historialRevisiones;
     private TipoNegocio tipoNegocio;
     private List<String> telefonos;

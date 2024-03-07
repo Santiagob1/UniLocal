@@ -1,9 +1,7 @@
 package co.edu.uniquindio.unilocal.servicios.interfaces;
 
-public interface ModeradorServicio {
+public interface ModeradorServicio extends CuentaServicio{
 
-    void iniciarSesion();
-    void recuperarPassword();
-    void obtenerCliente();
-    void eliminarCuenta();
+    void autorizarNegocio(String idNegocio);
+
 }
