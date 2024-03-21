@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unilocal.servicios.implementaciones;
 
-import co.edu.uniquindio.unilocal.dto.ActualizacionUsuarioDTO;
-import co.edu.uniquindio.unilocal.dto.InicioSesionDTO;
-import co.edu.uniquindio.unilocal.dto.RecuperarPasswordDTO;
-import co.edu.uniquindio.unilocal.dto.RegistroUsuarioDTO;
+import co.edu.uniquindio.unilocal.dto.*;
 import co.edu.uniquindio.unilocal.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoRegistro;
 import co.edu.uniquindio.unilocal.repositorios.ClienteRepo;
@@ -23,8 +20,6 @@ public class ClienteServicioImpl implements CLienteServicio {
 
     @Override
     public String registrarse(RegistroUsuarioDTO registroUsuarioDTO) throws Exception {
-
-
         //Crear validaciones que se reuqieran
 
         if (existeNickname(registroUsuarioDTO.nickName())){
@@ -116,6 +111,16 @@ public class ClienteServicioImpl implements CLienteServicio {
             throw new Exception("Cliente no encontrado con el ID: " + idCliente);
         }
     }
+    @Override
+    public DetalleClienteDTO obtenerDetalleCliente(String idCliente) throws Exception {
+        Optional<Cliente> clienteOptional = clienteRepo.findByCodigo(idCliente);
+        if (clienteOptional.isPresent()) {
+            return new DetalleClienteDTO(clienteOptional.get().getNombre(), clienteOptional.get().getFotoPerfil());
+        } else {
+            throw new Exception("Cliente no encontrado con el ID: " + idCliente);
+        }
+    }
+
 
     @Override
     public void iniciarSesion(InicioSesionDTO inicioSesionDTO) throws Exception {
