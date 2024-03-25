@@ -21,7 +21,6 @@ public class ClienteServicioImpl implements CLienteServicio {
     @Override
     public String registrarse(RegistroUsuarioDTO registroUsuarioDTO) throws Exception {
         //Crear validaciones que se reuqieran
-
         if (existeNickname(registroUsuarioDTO.nickName())){
             throw new Exception("El Nickname " + registroUsuarioDTO.nickName() + "Ya está registrado.");
         }

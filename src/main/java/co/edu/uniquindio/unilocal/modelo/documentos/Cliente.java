@@ -2,6 +2,7 @@ package co.edu.uniquindio.unilocal.modelo.documentos;
 
 import co.edu.uniquindio.unilocal.modelo.entidades.Cuenta;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoRegistro;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
