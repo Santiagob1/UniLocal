@@ -11,6 +11,6 @@ public record CrearComentarioDTO(
         @NotBlank String codigoCLiente,
         @NotBlank String codigoNegocio,
         @NotBlank String mensaje,
-        String respuesta
+        @NotBlank String idComentarioPadre
 ) {
 }

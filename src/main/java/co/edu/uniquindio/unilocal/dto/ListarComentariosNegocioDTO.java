@@ -6,6 +6,6 @@ public record ListarComentariosNegocioDTO(
         String codigo,
         LocalDateTime fecha,
         String nombreCLiente,
-        String fotoCLiente,
+        String idComentarioPadre,
         String mensaje) {
 }

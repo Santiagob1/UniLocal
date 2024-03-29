@@ -3,6 +3,7 @@ package co.edu.uniquindio.unilocal.modelo.documentos;
 import co.edu.uniquindio.unilocal.modelo.entidades.HistorialRevision;
 import co.edu.uniquindio.unilocal.modelo.entidades.Horario;
 import co.edu.uniquindio.unilocal.modelo.entidades.Ubicacion;
+import co.edu.uniquindio.unilocal.modelo.enums.EstadoNegocio;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoRegistro;
 import co.edu.uniquindio.unilocal.modelo.enums.TipoNegocio;
 import lombok.*;
@@ -10,6 +11,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Document("negocios")
@@ -28,15 +30,17 @@ public class Negocio {
     private String nombre;
     private String descripcion;
     private List<Horario> horario;
-    private EstadoRegistro estado;
-    private List<String> imagenes;
-    private String menu;
+    private EstadoNegocio estado;
+    private EstadoRegistro estadoRegistro;
+    // Pendiente de preguntar al profesor
+    private Map<String, String> imagenes;
     private List<HistorialRevision> historialRevisiones;
+    private List<Menu> lstMenuNegocio;
     private TipoNegocio tipoNegocio;
     private List<String> telefonos;
 
     @Builder
-    public Negocio(String codigoCliente, Ubicacion ubicacion, String nombre, String descripcion, List<Horario> horario, EstadoRegistro estado, List<String> imagenes, List<HistorialRevision> historialRevisiones, TipoNegocio tipoNegocio, List<String> telefonos) {
+    public Negocio(String codigoCliente, Ubicacion ubicacion, String nombre, String descripcion, List<Horario> horario, EstadoNegocio estado, Map<String, String> imagenes, List<HistorialRevision> historialRevisiones, TipoNegocio tipoNegocio, List<String> telefonos, List<Menu> lstMenu, EstadoRegistro estadoRegistro) {
         this.codigoCliente = codigoCliente;
         this.ubicacion = ubicacion;
         this.nombre = nombre;
@@ -47,5 +51,7 @@ public class Negocio {
         this.historialRevisiones = historialRevisiones;
         this.tipoNegocio = tipoNegocio;
         this.telefonos = telefonos;
+        this.lstMenuNegocio = lstMenu;
+        this.estadoRegistro = estadoRegistro;
     }
 }

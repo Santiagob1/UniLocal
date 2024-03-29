@@ -7,8 +7,8 @@ import co.edu.uniquindio.unilocal.dto.ResponderComentarioDTO;
 import java.util.List;
 
 public interface ComentarioServicio {
-    String crearComentario(CrearComentarioDTO crearComentarioDTO);
+    String crearComentario(CrearComentarioDTO crearComentarioDTO) throws Exception;
     List<ListarComentariosNegocioDTO> listarComentariosNegocio(String idNegocio);
-    boolean responderComentario(ResponderComentarioDTO responderComentarioDTO);
+    boolean responderComentario(CrearComentarioDTO responderComentarioDTO) throws Exception;
 
 }
