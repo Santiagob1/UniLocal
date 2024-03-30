@@ -11,7 +11,7 @@ public interface CLienteServicio extends CuentaServicio{
     boolean editarPerfil(ActualizacionUsuarioDTO actualizacionUsuarioDTO) throws Exception;
     boolean eliminarCuenta(String idCliente) throws Exception;
     boolean enviarLinkRecuperacion(String email) throws Exception;
-    boolean recuperarPassword(RecuperarPasswordDTO recuperarPasswordDTO) throws Exception;
+    boolean cambiarContrasena(RecuperarPasswordDTO recuperarPasswordDTO) throws Exception;
     Cliente obtenerCliente(String idCliente) throws Exception;
     boolean crearNegocioFavoritoCliente(Cliente cliente) throws Exception;
 

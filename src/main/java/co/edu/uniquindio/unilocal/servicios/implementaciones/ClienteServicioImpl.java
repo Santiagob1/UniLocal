@@ -104,7 +104,7 @@ public class ClienteServicioImpl implements CLienteServicio {
      * @throws Exception
      */
     @Override
-    public boolean recuperarPassword(RecuperarPasswordDTO recuperarPasswordDTO) throws Exception {
+    public boolean cambiarContrasena(RecuperarPasswordDTO recuperarPasswordDTO) throws Exception {
         Optional<Cliente> clienteOptional = clienteRepo.findByEmail(recuperarPasswordDTO.email());
         if (clienteOptional.isPresent()) {
             Cliente cliente = clienteOptional.get();

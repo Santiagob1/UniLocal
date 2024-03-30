@@ -27,9 +27,11 @@ public class NegocioFavoritoServicioImpl implements NegocioFavoritoServicio {
     public boolean crearFavoritosUsuario(FavoritoDTO favoritoDTO) throws Exception {
         Cliente cliente = cLienteServicio.obtenerCliente(favoritoDTO.codigoCliente());
         Negocio negocio = negocioServicio.obtenerNegocioDirecto(favoritoDTO.codigoNegocio());
-        if (!cliente.getLstNegociosFavoritos().contains(negocio)) {
-            cliente.getLstNegociosFavoritos().add(negocio);
-            return cLienteServicio.crearNegocioFavoritoCliente(cliente);
+        if (cliente != null && negocio != null) {
+            if (!cliente.getLstNegociosFavoritos().contains(negocio)) {
+                cliente.getLstNegociosFavoritos().add(negocio);
+                return cLienteServicio.crearNegocioFavoritoCliente(cliente);
+            }
         }
 
         return false;
@@ -47,9 +49,11 @@ public class NegocioFavoritoServicioImpl implements NegocioFavoritoServicio {
         Cliente cliente = cLienteServicio.obtenerCliente(favoritoDTO.codigoCliente());
         Negocio negocio = negocioServicio.obtenerNegocioDirecto(favoritoDTO.codigoNegocio());
 
-        if (cliente.getLstNegociosFavoritos().contains(negocio)) {
-            cliente.getLstNegociosFavoritos().remove(negocio);
-            return cLienteServicio.crearNegocioFavoritoCliente(cliente);
+        if (cliente != null && negocio != null) {
+            if (cliente.getLstNegociosFavoritos().contains(negocio)) {
+                cliente.getLstNegociosFavoritos().remove(negocio);
+                return cLienteServicio.crearNegocioFavoritoCliente(cliente);
+            }
         }
 
         return false;
