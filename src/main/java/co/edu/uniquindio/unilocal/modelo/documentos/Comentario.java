@@ -23,15 +23,16 @@ public class Comentario {
     private String codigoCLiente;
     private String codigoNegocio;
     private String mensaje;
-    private String respuesta;
+
+    private String idComentarioPadre;
 
     @Builder
-    public Comentario(LocalDateTime fecha, int calificacion, String codigoCLiente, String codigoNegocio, String mensaje, String respuesta) {
+    public Comentario(LocalDateTime fecha, int calificacion, String codigoCLiente, String codigoNegocio, String mensaje, String idComentarioPadre) {
         this.fecha = fecha;
         this.calificacion = calificacion;
         this.codigoCLiente = codigoCLiente;
         this.codigoNegocio = codigoNegocio;
         this.mensaje = mensaje;
-        this.respuesta = respuesta;
+        this.idComentarioPadre = idComentarioPadre;
     }
 }

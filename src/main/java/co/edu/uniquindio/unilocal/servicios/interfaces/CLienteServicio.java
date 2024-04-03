@@ -3,13 +3,16 @@ package co.edu.uniquindio.unilocal.servicios.interfaces;
 import co.edu.uniquindio.unilocal.dto.ActualizacionUsuarioDTO;
 import co.edu.uniquindio.unilocal.dto.RecuperarPasswordDTO;
 import co.edu.uniquindio.unilocal.dto.RegistroUsuarioDTO;
+import co.edu.uniquindio.unilocal.modelo.documentos.Cliente;
 
 public interface CLienteServicio extends CuentaServicio{
-    void registrarse(RegistroUsuarioDTO registroUsuarioDTO) throws Exception;
-    void eliminarCuenta(String idCliente) throws Exception;
-    void enviarLinkRecuperacion(String email) throws Exception;
-    void recuperarPassword(RecuperarPasswordDTO recuperarPasswordDTO) throws Exception;
-    void editarPerfil(ActualizacionUsuarioDTO actualizacionUsuarioDTO) throws Exception;
-    void obtenerCliente(String idCliente) throws Exception;
+    String registrarse(RegistroUsuarioDTO registroUsuarioDTO) throws Exception;
+
+    boolean editarPerfil(ActualizacionUsuarioDTO actualizacionUsuarioDTO) throws Exception;
+    boolean eliminarCuenta(String idCliente) throws Exception;
+    boolean enviarLinkRecuperacion(String email) throws Exception;
+    boolean cambiarContrasena(RecuperarPasswordDTO recuperarPasswordDTO) throws Exception;
+    Cliente obtenerCliente(String idCliente) throws Exception;
+    boolean crearNegocioFavoritoCliente(Cliente cliente) throws Exception;
 
 }

@@ -2,9 +2,12 @@ package co.edu.uniquindio.unilocal.modelo.documentos;
 
 import co.edu.uniquindio.unilocal.modelo.entidades.Cuenta;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoRegistro;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.*;
 
 @Document("clientes")
@@ -20,6 +23,7 @@ public class Cliente extends Cuenta {
     private String nickName;
     private String ciudad;
     private String fotoPerfil;
+    private List<Negocio> lstNegociosFavoritos;
 
     @Builder
     public Cliente(String nombre, String password, String email, EstadoRegistro estadoRegistro, String nickName, String ciudad, String fotoPerfil) {
