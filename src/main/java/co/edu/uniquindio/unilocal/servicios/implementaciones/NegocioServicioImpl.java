@@ -1,14 +1,12 @@
 package co.edu.uniquindio.unilocal.servicios.implementaciones;
 
-import co.edu.uniquindio.unilocal.dto.ActualizacionNegocioDTO;
-import co.edu.uniquindio.unilocal.dto.CambiarEstadoDTO;
-import co.edu.uniquindio.unilocal.dto.DetalleNegocioDTO;
-import co.edu.uniquindio.unilocal.dto.RegistroNegocioDTO;
+import co.edu.uniquindio.unilocal.dto.*;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoNegocio;
 import co.edu.uniquindio.unilocal.modelo.documentos.Negocio;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoRegistro;
 import co.edu.uniquindio.unilocal.modelo.enums.TipoNegocio;
 import co.edu.uniquindio.unilocal.repositorios.NegocioRepo;
+import co.edu.uniquindio.unilocal.servicios.interfaces.ComentarioServicio;
 import co.edu.uniquindio.unilocal.servicios.interfaces.NegocioServicio;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,7 @@ import java.util.stream.Collectors;
 public class NegocioServicioImpl implements NegocioServicio {
 
     private final NegocioRepo negocioRepo;
+    private final ComentarioServicio comentarioServicio;
 
     /**
      * Permite crear el negocio en la base de datos
@@ -113,7 +112,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                     negocio.getCodigoCliente(),
                     negocio.getEstado(),
                     negocio.getUbicacion(),
-                    negocio.getLstMenuNegocio()
+                    negocio.getLstMenuNegocio(),
+                    calcularPromedioCalificacion(negocio.getCodigo())
             );
         }
         return null;
@@ -137,7 +137,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                             negocio.getCodigoCliente(),
                             negocio.getEstado(),
                             negocio.getUbicacion(),
-                            negocio.getLstMenuNegocio()
+                            negocio.getLstMenuNegocio(),
+                            calcularPromedioCalificacion(negocio.getCodigo())
                     ))
                     .collect(Collectors.toList());
         }
@@ -161,7 +162,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                             negocio.getCodigoCliente(),
                             negocio.getEstado(),
                             negocio.getUbicacion(),
-                            negocio.getLstMenuNegocio()
+                            negocio.getLstMenuNegocio(),
+                            calcularPromedioCalificacion(negocio.getCodigo())
                     ))
                     .collect(Collectors.toList());
         }
@@ -185,7 +187,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                             negocio.getCodigoCliente(),
                             negocio.getEstado(),
                             negocio.getUbicacion(),
-                            negocio.getLstMenuNegocio()
+                            negocio.getLstMenuNegocio(),
+                            calcularPromedioCalificacion(negocio.getCodigo())
                     ))
                     .collect(Collectors.toList());
         }
@@ -210,7 +213,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                             negocio.getCodigoCliente(),
                             negocio.getEstado(),
                             negocio.getUbicacion(),
-                            negocio.getLstMenuNegocio()
+                            negocio.getLstMenuNegocio(),
+                            calcularPromedioCalificacion(negocio.getCodigo())
                     ))
                     .collect(Collectors.toList());
         }
@@ -247,7 +251,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                             negocio.getCodigoCliente(),
                             negocio.getEstado(),
                             negocio.getUbicacion(),
-                            negocio.getLstMenuNegocio()
+                            negocio.getLstMenuNegocio(),
+                            calcularPromedioCalificacion(negocio.getCodigo())
                     ))
                     .collect(Collectors.toList());
         }
@@ -270,10 +275,14 @@ public class NegocioServicioImpl implements NegocioServicio {
         return false;
     }
 
-    @Override
-    public double calcularPromedioCalificacion() {
-        // Lógica para calcular el promedio de calificaciones de los negocios
-        return 0; // Por ahora, solo devuelve 0
+    private double calcularPromedioCalificacion(String idNegocio) {
+        List<ListarComentariosNegocioDTO> lstComentarios = comentarioServicio.listarComentariosNegocio(idNegocio);
+        int sumatoria = 0;
+        for (ListarComentariosNegocioDTO comentario : lstComentarios) {
+            sumatoria += comentario.calificacion();
+        }
+
+        return sumatoria / lstComentarios.size();
     }
 
     /**

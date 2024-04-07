@@ -79,7 +79,6 @@ public interface NegocioServicio {
      * @return true o false
      */
     boolean cambiarEstado(CambiarEstadoDTO cambiarEstadoDTO);
-    double calcularPromedioCalificacion();
 
     /**
      * Permite obtener un negocio directamente de la base de datos

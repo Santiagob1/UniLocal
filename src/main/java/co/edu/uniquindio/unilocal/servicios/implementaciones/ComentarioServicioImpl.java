@@ -99,7 +99,8 @@ public class ComentarioServicioImpl implements ComentarioServicio {
                             comentario.getFecha(),
                             clienteRepo.findByCodigo(comentario.getCodigoCLiente()).get().getNombre(),
                             comentario.getIdComentarioPadre(),
-                            comentario.getMensaje()))
+                            comentario.getMensaje(),
+                            comentario.getCalificacion()))
                     .collect(Collectors.toList());
         } else {
             // Si el Optional no contiene un valor, se devuelve una lista vacía
