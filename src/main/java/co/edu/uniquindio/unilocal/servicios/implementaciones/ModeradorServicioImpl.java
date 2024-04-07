@@ -2,12 +2,14 @@ package co.edu.uniquindio.unilocal.servicios.implementaciones;
 
 import co.edu.uniquindio.unilocal.dto.*;
 import co.edu.uniquindio.unilocal.modelo.documentos.Cliente;
+import co.edu.uniquindio.unilocal.modelo.documentos.Negocio;
 import co.edu.uniquindio.unilocal.modelo.entidades.HistorialRevision;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoNegocio;
 import co.edu.uniquindio.unilocal.servicios.interfaces.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -19,12 +21,6 @@ public class ModeradorServicioImpl implements ModeradorServicio {
     private final EmailServicio emailServicio;
     private final CLienteServicio cLienteServicio;
     private final HistorialServicio historialServicio;
-    @Override
-    public boolean iniciarSesion(InicioSesionDTO inicioSesionDTO) throws Exception {
-        // Lógica para iniciar sesión de un moderador
-        // Esto podría ser similar a la implementación en CuentaServicioImpl
-        return false; // Por ahora, solo devuelve false
-    }
 
     /**
      * Permite autorizar o rechazar un negocio creado
@@ -40,7 +36,14 @@ public class ModeradorServicioImpl implements ModeradorServicio {
         Cliente cliente = new Cliente();
         if (negocioServicio.cambiarEstado(new CambiarEstadoDTO(autorizarRechazarNegocioDTO.idNegocio(), autorizarRechazarNegocioDTO.estado()))) {
             negocio = negocioServicio.obtenerNegocio(autorizarRechazarNegocioDTO.idNegocio());
-            cliente = cLienteServicio.obtenerCliente(negocio.codigoCliente());
+
+            if (autorizarRechazarNegocioDTO.estado().equals(EstadoNegocio.RECHAZADO)) {
+                Negocio negocioBD = negocioServicio.obtenerNegocioDirecto(autorizarRechazarNegocioDTO.idNegocio());
+                negocioBD.setFechaRechazo(LocalDate.now());
+                negocioServicio.actualizarNegocioRechazo(negocioBD);
+            }
+
+            cliente = cLienteServicio.obtenerClienteDirecto(negocio.codigoCliente());
             String cuerpo = "";
 
             if (autorizarRechazarNegocioDTO.estado().equals(EstadoNegocio.RECHAZADO)) {

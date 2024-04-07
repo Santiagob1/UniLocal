@@ -90,5 +90,12 @@ public interface NegocioServicio {
      */
     Negocio obtenerNegocioDirecto(String codigoNegocio) throws Exception;
 
+    /**
+     * Permite actualizar la fecha de rechazo de un negocio especifico
+     * @param negocio
+     * @throws Exception
+     */
+    void actualizarNegocioRechazo(Negocio negocio) throws Exception;
+
 
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ModeradorRepo extends MongoRepository<Moderador, String> {
+    Moderador findByEmail(String email);
 }

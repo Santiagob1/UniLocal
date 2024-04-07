@@ -12,8 +12,11 @@ import co.edu.uniquindio.unilocal.repositorios.NegocioRepo;
 import co.edu.uniquindio.unilocal.servicios.interfaces.NegocioServicio;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -224,7 +227,19 @@ public class NegocioServicioImpl implements NegocioServicio {
         List<Negocio> lstNegocios = negocioRepo.findAll();
 
         if (lstNegocios != null && lstNegocios.size() > 0) {
-            return lstNegocios.stream()
+
+            LocalDate currentDate = LocalDate.now();
+
+            lstNegocios.forEach(negocio -> {
+                long dias = ChronoUnit.DAYS.between(negocio.getFechaRechazo(), currentDate);
+                if (dias == 5) {
+                    negocio.setEstadoRegistro(EstadoRegistro.INACTIVO);
+                    negocioRepo.save(negocio);
+                }
+            });
+
+
+            return lstNegocios.stream().filter(negocio -> negocio.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
                     .map(negocio -> new DetalleNegocioDTO(
                             negocio.getCodigo(),
                             negocio.getNombre(),
@@ -277,5 +292,16 @@ public class NegocioServicioImpl implements NegocioServicio {
         }
 
         return negocio.get();
+    }
+
+    /**
+     * Permite actualizar el negocio con la fecha de rechazo del
+     * moderador
+     * @param negocio
+     * @throws Exception
+     */
+    @Override
+    public void actualizarNegocioRechazo(Negocio negocio) throws Exception {
+        negocioRepo.save(negocio);
     }
 }

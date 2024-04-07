@@ -1,7 +1,9 @@
 package co.edu.uniquindio.unilocal.servicios.interfaces;
 
 import co.edu.uniquindio.unilocal.dto.InicioSesionDTO;
+import co.edu.uniquindio.unilocal.dto.TokenDTO;
 
 public interface CuentaServicio {
-    boolean iniciarSesion(InicioSesionDTO inicioSesionDTO) throws Exception;
+    TokenDTO iniciarSesionCliente(InicioSesionDTO inicioSesionDTO) throws Exception;
+    TokenDTO iniciarSesionModerador(InicioSesionDTO inicioSesionDTO) throws Exception;
 }

@@ -10,6 +10,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -38,9 +39,10 @@ public class Negocio {
     private List<Menu> lstMenuNegocio;
     private TipoNegocio tipoNegocio;
     private List<String> telefonos;
+    private LocalDate fechaRechazo;
 
     @Builder
-    public Negocio(String codigoCliente, Ubicacion ubicacion, String nombre, String descripcion, List<Horario> horario, EstadoNegocio estado, Map<String, String> imagenes, List<HistorialRevision> historialRevisiones, TipoNegocio tipoNegocio, List<String> telefonos, List<Menu> lstMenu, EstadoRegistro estadoRegistro) {
+    public Negocio(String codigoCliente, Ubicacion ubicacion, String nombre, String descripcion, List<Horario> horario, EstadoNegocio estado, Map<String, String> imagenes, List<HistorialRevision> historialRevisiones, TipoNegocio tipoNegocio, List<String> telefonos, List<Menu> lstMenu, EstadoRegistro estadoRegistro, LocalDate fechaRechazo) {
         this.codigoCliente = codigoCliente;
         this.ubicacion = ubicacion;
         this.nombre = nombre;
@@ -53,5 +55,6 @@ public class Negocio {
         this.telefonos = telefonos;
         this.lstMenuNegocio = lstMenu;
         this.estadoRegistro = estadoRegistro;
+        this.fechaRechazo = fechaRechazo;
     }
 }

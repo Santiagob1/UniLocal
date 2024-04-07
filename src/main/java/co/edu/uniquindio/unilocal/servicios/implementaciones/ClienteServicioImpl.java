@@ -7,6 +7,7 @@ import co.edu.uniquindio.unilocal.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocal.servicios.interfaces.CLienteServicio;
 import co.edu.uniquindio.unilocal.servicios.interfaces.EmailServicio;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,6 +19,12 @@ public class ClienteServicioImpl implements CLienteServicio {
     private final ClienteRepo clienteRepo;
     private final EmailServicio emailServicio;
 
+    /**
+     * Permite registrar un cliente
+     * @param registroUsuarioDTO
+     * @return
+     * @throws Exception
+     */
     @Override
     public String registrarse(RegistroUsuarioDTO registroUsuarioDTO) throws Exception {
         //Crear validaciones que se reuqieran
@@ -28,10 +35,13 @@ public class ClienteServicioImpl implements CLienteServicio {
             throw new Exception("El email  " + registroUsuarioDTO.email() + " Ya está registrado.");
         }
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String passwordEncriptada = passwordEncoder.encode(registroUsuarioDTO.password());
+
         Cliente cliente = Cliente.builder()
                 .email(registroUsuarioDTO.email())
                 .nombre(registroUsuarioDTO.nombre())
-                .password(registroUsuarioDTO.password())
+                .password(passwordEncriptada)
                 .estadoRegistro(EstadoRegistro.ACTIVO)
                 .ciudad(registroUsuarioDTO.Ciudad())
                 .fotoPerfil(registroUsuarioDTO.fotoPerfil())
@@ -43,10 +53,20 @@ public class ClienteServicioImpl implements CLienteServicio {
         return clienteRegistrado.getCodigo();
     }
 
+    /**
+     * Permite validar la existencia del nickname o nombre de usuario
+     * @param nickName
+     * @return
+     */
     private boolean existeNickname(String nickName) {
         return clienteRepo.findByNickname(nickName).isPresent();
     }
 
+    /**
+     * Permite validar si ya existe un email
+     * @param email
+     * @return
+     */
     private boolean existeEmail(String email) {
         return clienteRepo.findByEmail(email).isPresent();
     }
@@ -135,33 +155,45 @@ public class ClienteServicioImpl implements CLienteServicio {
     }
 
     @Override
-    public Cliente obtenerCliente(String idCliente) throws Exception {
+    public DetalleClienteDTO obtenerCliente(String idCliente) throws Exception {
         Optional<Cliente> clienteOptional = clienteRepo.findByCodigo(idCliente);
         if (clienteOptional.isPresent()) {
-            return clienteOptional.get();
+            Cliente cliente = clienteOptional.get();
+            DetalleClienteDTO detalleClienteDTO = new DetalleClienteDTO(
+                    idCliente,
+                    cliente.getNombre(),
+                    cliente.getFotoPerfil(),
+                    cliente.getCiudad()
+            );
+            return detalleClienteDTO;
         } else {
             throw new Exception("Cliente no encontrado con el ID: " + idCliente);
         }
     }
 
+    /**
+     * Permite obtener un cliente directo de la base de datos
+     * @param idCliente
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Cliente obtenerClienteDirecto(String idCliente) throws Exception {
+        Optional<Cliente> clienteOptional = clienteRepo.findByCodigo(idCliente);
+        if (clienteOptional.isPresent()) {
+            return clienteOptional.get();
+        }
+        return null;
+    }
+
+    /**
+     * Permite guardar el cambio realizado para los favoritos
+     * @param cliente
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean crearNegocioFavoritoCliente(Cliente cliente) throws Exception {
         return !clienteRepo.save(cliente).getCodigo().equals("");
-    }
-
-//    @Override
-//    public DetalleClienteDTO obtenerDetalleCliente(String idCliente) throws Exception {
-//        Optional<Cliente> clienteOptional = clienteRepo.findByCodigo(idCliente);
-//        if (clienteOptional.isPresent()) {
-//            return new DetalleClienteDTO(clienteOptional.get().getNombre(), clienteOptional.get().getFotoPerfil());
-//        } else {
-//            throw new Exception("Cliente no encontrado con el ID: " + idCliente);
-//        }
-//    }
-
-
-    @Override
-    public boolean iniciarSesion(InicioSesionDTO inicioSesionDTO) throws Exception {
-        return false;
     }
 }
