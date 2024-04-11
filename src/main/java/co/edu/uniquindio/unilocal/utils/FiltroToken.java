@@ -40,7 +40,7 @@ public class FiltroToken extends OncePerRequestFilter {
             try {
 //Si la petición es para la ruta /api/clientes se verifica que el token sea  correcto y que el rol sea CLIENTE
 
-                if (requestURI.startsWith("/api/clientes") ||
+                if ((requestURI.startsWith("/api/clientes") && !requestURI.startsWith("/api/clientes/registrar-cliente")) ||
                         requestURI.startsWith("/api/comentario") ||
                         requestURI.startsWith("/api/negocio") ||
                         requestURI.startsWith("api/negocio-favorito")) {

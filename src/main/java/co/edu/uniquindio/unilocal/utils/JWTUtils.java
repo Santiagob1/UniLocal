@@ -31,7 +31,7 @@ public class JWTUtils {
     }
 
     private SecretKey getKey(){
-        String claveSecreta = "UN1L0C4L$$%%/&2024";
+        String claveSecreta = "UN1L0C4L$$%%/&2024&&%%$$##secretsecretsecretsecretsecretsecretsecret";
         byte[] secretKeyBytes = claveSecreta.getBytes();
         return Keys.hmacShaKeyFor(secretKeyBytes);
     }
