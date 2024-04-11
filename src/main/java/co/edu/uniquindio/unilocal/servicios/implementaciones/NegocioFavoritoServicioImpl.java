@@ -25,7 +25,7 @@ public class NegocioFavoritoServicioImpl implements NegocioFavoritoServicio {
      */
     @Override
     public boolean crearFavoritosUsuario(FavoritoDTO favoritoDTO) throws Exception {
-        Cliente cliente = cLienteServicio.obtenerCliente(favoritoDTO.codigoCliente());
+        Cliente cliente = cLienteServicio.obtenerClienteDirecto(favoritoDTO.codigoCliente());
         Negocio negocio = negocioServicio.obtenerNegocioDirecto(favoritoDTO.codigoNegocio());
         if (cliente != null && negocio != null) {
             if (!cliente.getLstNegociosFavoritos().contains(negocio)) {
@@ -46,7 +46,7 @@ public class NegocioFavoritoServicioImpl implements NegocioFavoritoServicio {
      */
     @Override
     public boolean eliminarFavoritoUsuarios(FavoritoDTO favoritoDTO) throws Exception {
-        Cliente cliente = cLienteServicio.obtenerCliente(favoritoDTO.codigoCliente());
+        Cliente cliente = cLienteServicio.obtenerClienteDirecto(favoritoDTO.codigoCliente());
         Negocio negocio = negocioServicio.obtenerNegocioDirecto(favoritoDTO.codigoNegocio());
 
         if (cliente != null && negocio != null) {

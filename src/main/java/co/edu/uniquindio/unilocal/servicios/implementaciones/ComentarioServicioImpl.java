@@ -13,8 +13,10 @@ import co.edu.uniquindio.unilocal.repositorios.NegocioRepo;
 import co.edu.uniquindio.unilocal.servicios.interfaces.ComentarioServicio;
 import co.edu.uniquindio.unilocal.servicios.interfaces.EmailServicio;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +24,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@Transactional
+@RequiredArgsConstructor
 public class ComentarioServicioImpl implements ComentarioServicio {
 
     private final ComentarioRepo comentarioRepo;

@@ -27,6 +27,7 @@ public class CuentaServicioImpl implements CuentaServicio {
     private final ModeradorRepo moderadorRepo;
     private final JWTUtils jwtUtils;
 
+
     @Override
     public TokenDTO iniciarSesionCliente(InicioSesionDTO loginDTO) throws Exception {
         Optional<Cliente> clienteOptional = clienteRepo.findByEmail(loginDTO.nickname());

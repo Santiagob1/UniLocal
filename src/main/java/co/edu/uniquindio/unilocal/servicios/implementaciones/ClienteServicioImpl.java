@@ -6,18 +6,21 @@ import co.edu.uniquindio.unilocal.modelo.enums.EstadoRegistro;
 import co.edu.uniquindio.unilocal.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocal.servicios.interfaces.CLienteServicio;
 import co.edu.uniquindio.unilocal.servicios.interfaces.EmailServicio;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@Transactional
+@RequiredArgsConstructor
 public class ClienteServicioImpl implements CLienteServicio {
 
     private final ClienteRepo clienteRepo;
     private final EmailServicio emailServicio;
+
 
     /**
      * Permite registrar un cliente
@@ -59,7 +62,7 @@ public class ClienteServicioImpl implements CLienteServicio {
      * @return
      */
     private boolean existeNickname(String nickName) {
-        return clienteRepo.findByNickname(nickName).isPresent();
+        return clienteRepo.findByNickName(nickName).isPresent();
     }
 
     /**
