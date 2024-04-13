@@ -52,4 +52,10 @@ public class ClienteControlador {
         cLienteServicio.enviarLinkRecuperacion(email);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Link enviado correctamente"));
     }
+
+    @PostMapping("/cambiar-password")
+    public ResponseEntity<MensajeDTO<String>> cambiarContrasena(@Valid @RequestBody RecuperarPasswordDTO recuperarPasswordDTO)  throws Exception {
+        cLienteServicio.cambiarContrasena(recuperarPasswordDTO);
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "Contraseña actualizada correctamente"));
+    }
 }
