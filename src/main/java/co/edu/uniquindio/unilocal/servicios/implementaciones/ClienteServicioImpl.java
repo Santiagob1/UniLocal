@@ -141,6 +141,12 @@ public class ClienteServicioImpl implements CLienteServicio {
         }
     }
 
+    /**
+     * Permite modificar el perfil del usuario
+     * @param actualizacionUsuarioDTO
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean editarPerfil(ActualizacionUsuarioDTO actualizacionUsuarioDTO) throws Exception {
         Optional<Cliente> clienteOptional = clienteRepo.findByCodigo(actualizacionUsuarioDTO.id());
@@ -157,6 +163,12 @@ public class ClienteServicioImpl implements CLienteServicio {
         }
     }
 
+    /**
+     * Permite obetner un cliente especifico
+     * @param idCliente
+     * @return
+     * @throws Exception
+     */
     @Override
     public DetalleClienteDTO obtenerCliente(String idCliente) throws Exception {
         Optional<Cliente> clienteOptional = clienteRepo.findByCodigo(idCliente);

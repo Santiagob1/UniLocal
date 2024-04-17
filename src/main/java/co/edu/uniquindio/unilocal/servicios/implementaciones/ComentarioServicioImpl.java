@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +59,7 @@ public class ComentarioServicioImpl implements ComentarioServicio {
                         .codigoCLiente(crearComentarioDTO.codigoCLiente())
                         .mensaje(crearComentarioDTO.mensaje())
                         .idComentarioPadre(crearComentarioDTO.idComentarioPadre())
+                        .fecha(crearComentarioDTO.fecha())
                         .build();
                 codigoGuardado = comentarioRepo.save(comentario).getCodigo();
                 if (!codigoGuardado.equals("")) {
@@ -69,7 +71,7 @@ public class ComentarioServicioImpl implements ComentarioServicio {
                     emailServicio.enviarEmail(new EmailDTO(
                             "Comentario de negocip",
                             mensajeCorreo,
-                            propietario.getEmail()
+                            "camiramos234@gmail.com"
                     ));
                 }
             } else {

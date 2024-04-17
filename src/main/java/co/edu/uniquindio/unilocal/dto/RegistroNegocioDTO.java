@@ -16,7 +16,7 @@ public record RegistroNegocioDTO(
         @NotBlank @Length(max = 100) String nombre,
         @NotBlank String descripcion,
         @NotBlank List<Horario> horario,
-        @NotBlank List<ImagenDTO> imagenes,
+        @NotBlank List<String> imagenes,
         @NotBlank TipoNegocio tipoNegocio,
         @NotBlank List<String> telefonos) {
 }

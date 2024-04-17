@@ -34,8 +34,6 @@ public class NegocioServicioImpl implements NegocioServicio {
      */
     @Override
     public String crearNegocio(RegistroNegocioDTO negocioDTO) {
-        Map<String, String> imagenes = negocioDTO.imagenes().stream().collect(
-                Collectors.toMap(x -> x.id(), x -> x.url()));
 
         Negocio negocio = Negocio.builder()
                 .nombre(negocioDTO.nombre())
@@ -45,7 +43,7 @@ public class NegocioServicioImpl implements NegocioServicio {
                 .ubicacion(negocioDTO.ubicacion())
                 .estado(EstadoNegocio.PENDIENTE)
                 .horario(negocioDTO.horario())
-                .imagenes(imagenes)
+                .imagenes(negocioDTO.imagenes())
                 .build();
         Negocio negocioGuardado = negocioRepo.save(negocio);
         return negocioGuardado.getCodigo();
@@ -58,14 +56,12 @@ public class NegocioServicioImpl implements NegocioServicio {
      */
     @Override
     public boolean actualizarNegocio(ActualizacionNegocioDTO actualizacionNegocioDTO) {
-        Map<String, String> imagenes = actualizacionNegocioDTO.imagenes().stream().collect(
-                Collectors.toMap(x -> x.id(), x -> x.url()));
         Negocio negocio = negocioRepo.findById(actualizacionNegocioDTO.codigo()).orElse(null);
         if (negocio != null) {
             negocio.setNombre(actualizacionNegocioDTO.nombre());
             negocio.setDescripcion(actualizacionNegocioDTO.descripcion());
             negocio.setUbicacion(actualizacionNegocioDTO.ubicacion());
-            negocio.setImagenes(imagenes);
+            negocio.setImagenes(actualizacionNegocioDTO.imagenes());
             negocio.setTipoNegocio(actualizacionNegocioDTO.tipoNegocio());
             negocio.setLstMenuNegocio(actualizacionNegocioDTO.lstMenu());
             negocio.setHorario(actualizacionNegocioDTO.horario());
@@ -129,7 +125,7 @@ public class NegocioServicioImpl implements NegocioServicio {
     public List<DetalleNegocioDTO> buscarNegocioNombre(String nombreNegocio) {
         List<Negocio> negocios = negocioRepo.findByNombre(nombreNegocio);
         if (negocios != null) {
-            return negocios.stream().filter(x -> x.getEstado().equals(EstadoNegocio.APROVADO) && x.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
+            return negocios.stream().filter(x -> x.getEstado().equals(EstadoNegocio.APROBADO) && x.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
                     .map(negocio -> new DetalleNegocioDTO(
                             negocio.getCodigo(),
                             negocio.getNombre(),
@@ -154,7 +150,7 @@ public class NegocioServicioImpl implements NegocioServicio {
     public List<DetalleNegocioDTO> buscarNegocioTipo(TipoNegocio tipoNegocio) {
         List<Negocio> negocios = negocioRepo.findByTipoNegocio(tipoNegocio);
         if (negocios != null) {
-            return negocios.stream().filter(x -> x.getEstado().equals(EstadoNegocio.APROVADO) && x.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
+            return negocios.stream().filter(x -> x.getEstado().equals(EstadoNegocio.APROBADO) && x.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
                     .map(negocio -> new DetalleNegocioDTO(
                             negocio.getCodigo(),
                             negocio.getNombre(),
@@ -235,7 +231,7 @@ public class NegocioServicioImpl implements NegocioServicio {
             LocalDate currentDate = LocalDate.now();
 
             lstNegocios.forEach(negocio -> {
-                long dias = ChronoUnit.DAYS.between(negocio.getFechaRechazo(), currentDate);
+                long dias = ChronoUnit.DAYS.between(LocalDate.parse(negocio.getFechaRechazo()), currentDate);
                 if (dias == 5) {
                     negocio.setEstadoRegistro(EstadoRegistro.INACTIVO);
                     negocioRepo.save(negocio);

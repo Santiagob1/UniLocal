@@ -8,8 +8,8 @@ import lombok.*;
 @Setter
 public class Horario {
 
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
+    private String horaInicio;
+    private String horaFin;
     private String dia;
 
 }

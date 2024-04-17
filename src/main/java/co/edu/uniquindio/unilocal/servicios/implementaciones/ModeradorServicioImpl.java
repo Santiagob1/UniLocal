@@ -39,7 +39,7 @@ public class ModeradorServicioImpl implements ModeradorServicio {
 
             if (autorizarRechazarNegocioDTO.estado().equals(EstadoNegocio.RECHAZADO)) {
                 Negocio negocioBD = negocioServicio.obtenerNegocioDirecto(autorizarRechazarNegocioDTO.idNegocio());
-                negocioBD.setFechaRechazo(LocalDate.now());
+                negocioBD.setFechaRechazo(LocalDate.now().toString());
                 negocioServicio.actualizarNegocioRechazo(negocioBD);
             }
 
@@ -66,7 +66,7 @@ public class ModeradorServicioImpl implements ModeradorServicio {
                     autorizarRechazarNegocioDTO.idModerador(),
                     autorizarRechazarNegocioDTO.motivo(),
                     autorizarRechazarNegocioDTO.estado(),
-                    LocalDateTime.now()
+                    LocalDateTime.now().toString()
             );
 
             historialServicio.guardarHistorial(historialRevision);

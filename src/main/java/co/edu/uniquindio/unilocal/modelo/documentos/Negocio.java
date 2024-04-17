@@ -6,6 +6,7 @@ import co.edu.uniquindio.unilocal.modelo.entidades.Ubicacion;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoNegocio;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoRegistro;
 import co.edu.uniquindio.unilocal.modelo.enums.TipoNegocio;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -33,16 +34,16 @@ public class Negocio {
     private List<Horario> horario;
     private EstadoNegocio estado;
     private EstadoRegistro estadoRegistro;
-    // Pendiente de preguntar al profesor
-    private Map<String, String> imagenes;
+    private List<String> imagenes;
     private List<HistorialRevision> historialRevisiones;
     private List<Menu> lstMenuNegocio;
     private TipoNegocio tipoNegocio;
     private List<String> telefonos;
-    private LocalDate fechaRechazo;
+
+    private String fechaRechazo;
 
     @Builder
-    public Negocio(String codigoCliente, Ubicacion ubicacion, String nombre, String descripcion, List<Horario> horario, EstadoNegocio estado, Map<String, String> imagenes, List<HistorialRevision> historialRevisiones, TipoNegocio tipoNegocio, List<String> telefonos, List<Menu> lstMenu, EstadoRegistro estadoRegistro, LocalDate fechaRechazo) {
+    public Negocio(String codigoCliente, Ubicacion ubicacion, String nombre, String descripcion, List<Horario> horario, EstadoNegocio estado, List<String> imagenes, List<HistorialRevision> historialRevisiones, TipoNegocio tipoNegocio, List<String> telefonos, List<Menu> lstMenu, EstadoRegistro estadoRegistro, String fechaRechazo) {
         this.codigoCliente = codigoCliente;
         this.ubicacion = ubicacion;
         this.nombre = nombre;

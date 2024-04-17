@@ -42,12 +42,12 @@ public class ClienteControlador {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, cLienteServicio.obtenerCliente(idCliente)));
     }
 
-    @GetMapping("/listar-negocios-propietario")
+    @GetMapping("/listar-negocios-propietario/{idPropietario}")
     public ResponseEntity<MensajeDTO<List<DetalleNegocioDTO>>> listarNegociosPropietario(@PathVariable String idPropietario) throws Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarNegocioPropietario(idPropietario)));
     }
 
-    @GetMapping("/recuperar-password")
+    @GetMapping("/recuperar-password/{email}")
     public ResponseEntity<MensajeDTO<String>> recuperarContrasena(@PathVariable String email)  throws Exception {
         cLienteServicio.enviarLinkRecuperacion(email);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Link enviado correctamente"));

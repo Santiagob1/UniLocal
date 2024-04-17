@@ -23,7 +23,6 @@ public class Cliente extends Cuenta {
     private String nickName;
     private String ciudad;
     private String fotoPerfil;
-    private List<Negocio> lstNegociosFavoritos;
 
     @Builder
     public Cliente(String nombre, String password, String email, EstadoRegistro estadoRegistro, String nickName, String ciudad, String fotoPerfil) {

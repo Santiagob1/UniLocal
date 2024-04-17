@@ -18,7 +18,7 @@ public class Comentario {
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
-    private LocalDateTime fecha;
+    private String fecha;
     private int calificacion;
     private String codigoCLiente;
     private String codigoNegocio;
@@ -27,7 +27,7 @@ public class Comentario {
     private String idComentarioPadre;
 
     @Builder
-    public Comentario(LocalDateTime fecha, int calificacion, String codigoCLiente, String codigoNegocio, String mensaje, String idComentarioPadre) {
+    public Comentario(String fecha, int calificacion, String codigoCLiente, String codigoNegocio, String mensaje, String idComentarioPadre) {
         this.fecha = fecha;
         this.calificacion = calificacion;
         this.codigoCLiente = codigoCLiente;

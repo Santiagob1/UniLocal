@@ -6,8 +6,9 @@ db.clientes.insertMany([
         ciudad: 'Armenia',
         fotoPerfil: 'foto.png',
         nombre: 'Pepe perez',
-        password: '1234',
+        password: '$2a$10$7rAHIP6beAU7xM/9ks5xDOIbIkR9F3FFQYxbf2WRqf9zGMDg0vpZK',
         estadoRegistro: 'ACTIVO',
+        email: 'pepe@gmail.com',
         _class: 'co.edu.uniquindio.unilocal.modelo.documentos.Cliente'
     },
     {
@@ -16,8 +17,9 @@ db.clientes.insertMany([
         ciudad: 'Armenia',
         fotoPerfil: 'eee.png',
         nombre: 'Andrea Perez',
-        password: '1234',
+        password: '$2a$10$7rAHIP6beAU7xM/9ks5xDOIbIkR9F3FFQYxbf2WRqf9zGMDg0vpZK',
         estadoRegistro: 'ACTIVO',
+        email: 'eeee@gmail.com',
         _class: 'co.edu.uniquindio.unilocal.modelo.documentos.Cliente'
     },
     {
@@ -26,8 +28,9 @@ db.clientes.insertMany([
         ciudad: 'Armenia',
         fotoPerfil: 'rrrr.png',
         nombre: 'Rodrigo perez',
-        password: '1234',
+        password: '$2a$10$7rAHIP6beAU7xM/9ks5xDOIbIkR9F3FFQYxbf2WRqf9zGMDg0vpZK',
         estadoRegistro: 'ACTIVO',
+        email: 'rrrr@gmail.com',
         _class: 'co.edu.uniquindio.unilocal.modelo.documentos.Cliente'
     },
     {
@@ -36,8 +39,9 @@ db.clientes.insertMany([
         ciudad: 'Armenia',
         fotoPerfil: 'wwww.png',
         nombre: 'William perez',
-        password: '1234',
+        password: '$2a$10$7rAHIP6beAU7xM/9ks5xDOIbIkR9F3FFQYxbf2WRqf9zGMDg0vpZK',
         estadoRegistro: 'ACTIVO',
+        email: 'william@gmail.com',
         _class: 'co.edu.uniquindio.unilocal.modelo.documentos.cliente'
     },
     {
@@ -46,8 +50,9 @@ db.clientes.insertMany([
         ciudad: 'Armenia',
         fotoPerfil: 'tttt.png',
         nombre: 'Tatiana perez',
-        password: '1234',
+        password: '$2a$10$7rAHIP6beAU7xM/9ks5xDOIbIkR9F3FFQYxbf2WRqf9zGMDg0vpZK',
         estadoRegistro: 'ACTIVO',
+        email: 'tttt@gmail.com',
         _class: 'co.edu.uniquindio.unilocal.modelo.documentos.cliente'
     }
 ]);
@@ -64,15 +69,15 @@ db.negocios.insertMany([
         descripcion: 'Descripcion del negocio 1',
         horario: [
             {
-                horaInicio: '08:00',
-                horaFin: '21:00',
+                horaInicio: '08:00:00',
+                horaFin: '08:00:00',
                 dia: 'Martes'
             }
         ],
         estado: 'PENDIENTE',
         estadoRegistro: 'ACTIVO',
         tipoNegocio: 'BAR',
-        fechaRechazo: '13-04-2024',
+        fechaRechazo: '2024-04-17',
         imagenes: ['imagen1.png', 'imagen2.png'],
         lstMenuNegocio: [
             {
@@ -88,7 +93,7 @@ db.negocios.insertMany([
                 codigoModerador: '1',
                 descripcion: 'Historial realizado',
                 estadoNegocio: 'APROBADO',
-                fecha: '13-04-2024'
+                fecha: '2024-04-17'
             }
         ],
         teleonos: ['3243454353', '2342345435'],
@@ -105,15 +110,15 @@ db.negocios.insertMany([
         descripcion: 'Descripcion del negocio 2',
         horario: [
             {
-                horaInicio: '08:00',
-                horaFin: '21:00',
+                horaInicio: '08:00:00',
+                horaFin: '08:00:00',
                 dia: 'Lunes'
             }
         ],
         estado: 'PENDIENTE',
         estadoRegistro: 'ACTIVO',
         tipoNegocio: 'PANADERIA',
-        fechaRechazo: '13-04-2024',
+        fechaRechazo: '2024-04-17',
         imagenes: ['imagen1.png', 'imagen2.png'],
         lstMenuNegocio: [
             {
@@ -129,7 +134,7 @@ db.negocios.insertMany([
                 codigoModerador: '2',
                 descripcion: 'Historial realizado',
                 estadoNegocio: 'APROBADO',
-                fecha: '13-04-2024'
+                fecha: '2024-04-17'
             }
         ],
         teleonos: ['434354', '435435'],
@@ -146,15 +151,15 @@ db.negocios.insertMany([
         descripcion: 'Descripcion del negocio 3',
         horario: [
             {
-                horaInicio: '08:00',
-                horaFin: '21:00',
+                horaInicio: '08:00:00',
+                horaFin: '08:00:00',
                 dia: 'Miercoles'
             }
         ],
         estado: 'PENDIENTE',
         estadoRegistro: 'ACTIVO',
         tipoNegocio: 'DISCOTECA',
-        fechaRechazo: '13-04-2024',
+        fechaRechazo: '2024-04-17',
         imagenes: ['imagen1.png', 'imagen2.png'],
         lstMenuNegocio: [
             {
@@ -170,7 +175,7 @@ db.negocios.insertMany([
                 codigoModerador: '3',
                 descripcion: 'Historial realizado',
                 estadoNegocio: 'APROBADO',
-                fecha: '13-04-2024'
+                fecha: '2024-04-17'
             }
         ],
         teleonos: ['12121223', '456655756'],
@@ -187,15 +192,15 @@ db.negocios.insertMany([
         descripcion: 'Descripcion del negocio 4',
         horario: [
             {
-                horaInicio: '08:00',
-                horaFin: '21:00',
+                horaInicio: '08:00:00',
+                horaFin: '08:00:00',
                 dia: 'Jueves'
             }
         ],
         estado: 'PENDIENTE',
         estadoRegistro: 'ACTIVO',
         tipoNegocio: 'RESTAURANTE',
-        fechaRechazo: '13-04-2024',
+        fechaRechazo: '2024-04-17',
         imagenes: ['imagen1.png', 'imagen2.png'],
         lstMenuNegocio: [
             {
@@ -211,7 +216,7 @@ db.negocios.insertMany([
                 codigoModerador: '4',
                 descripcion: 'Historial realizado',
                 estadoNegocio: 'APROBADO',
-                fecha: '13-04-2024'
+                fecha: '2024-04-17'
             }
         ],
         teleonos: ['34534543', '213123'],
@@ -228,15 +233,15 @@ db.negocios.insertMany([
         descripcion: 'Descripcion del negocio 5',
         horario: [
             {
-                horaInicio: '08:00',
-                horaFin: '21:00',
+                horaInicio: '08:00:00',
+                horaFin: '08:00:00',
                 dia: 'Viernes'
             }
         ],
         estado: 'PENDIENTE',
         estadoRegistro: 'ACTIVO',
         tipoNegocio: 'TIENDA',
-        fechaRechazo: '13-04-2024',
+        fechaRechazo: '2024-04-17',
         imagenes: ['imagen1.png', 'imagen2.png'],
         lstMenuNegocio: [
             {
@@ -252,7 +257,7 @@ db.negocios.insertMany([
                 codigoModerador: '5',
                 descripcion: 'Historial realizado',
                 estadoNegocio: 'APROBADO',
-                fecha: '13-04-2024'
+                fecha: '2024-04-17'
             }
         ],
         teleonos: ['1122131', '6786787'],
@@ -263,7 +268,7 @@ db.negocios.insertMany([
 db.comentarios.insertMany([
     {
         _id: '1',
-        fecha: '13-04-2024',
+        fecha: '2024-04-17',
         calificacion: 5,
         codigoCliente: '1',
         codigoNegocio: '1',
@@ -273,7 +278,7 @@ db.comentarios.insertMany([
     },
     {
         _id: '2',
-        fecha: '13-04-2024',
+        fecha: '2024-04-17',
         calificacion: 4,
         codigoCliente: '2',
         codigoNegocio: '2',
@@ -283,7 +288,7 @@ db.comentarios.insertMany([
     },
     {
         _id: '3',
-        fecha: '13-04-2024',
+        fecha: '2024-04-17',
         calificacion: 1,
         codigoCliente: '3',
         codigoNegocio: '3',
@@ -293,7 +298,7 @@ db.comentarios.insertMany([
     },
     {
         _id: '4',
-        fecha: '13-04-2024',
+        fecha: '2024-04-17',
         calificacion: 2,
         codigoCliente: '4',
         codigoNegocio: '4',
@@ -303,7 +308,7 @@ db.comentarios.insertMany([
     },
     {
         _id: '5',
-        fecha: '13-04-2024',
+        fecha: '2024-04-17',
         calificacion: 4,
         codigoCliente: '5',
         codigoNegocio: '5',
@@ -317,7 +322,7 @@ db.moderadores.insertMany([
     {
         _id: '1',
         nombre: 'Moderador 1',
-        password: '1234',
+        password: '$2a$10$7rAHIP6beAU7xM/9ks5xDOIbIkR9F3FFQYxbf2WRqf9zGMDg0vpZK',
         email: 'moderador1@gmail.com',
         estadoRegistro: 'ACTIVO',
         _class: 'co.edu.uniquindio.unilocal.modelo.documentos.Moderador'
@@ -325,7 +330,7 @@ db.moderadores.insertMany([
     {
         _id: '2',
         nombre: 'Moderador 2',
-        password: '1234',
+        password: '$2a$10$7rAHIP6beAU7xM/9ks5xDOIbIkR9F3FFQYxbf2WRqf9zGMDg0vpZK',
         email: 'moderador2@gmail.com',
         estadoRegistro: 'ACTIVO',
         _class: 'co.edu.uniquindio.unilocal.modelo.documentos.Moderador'
@@ -333,7 +338,7 @@ db.moderadores.insertMany([
     {
         _id: '3',
         nombre: 'Moderador 3',
-        password: '1234',
+        password: '$2a$10$7rAHIP6beAU7xM/9ks5xDOIbIkR9F3FFQYxbf2WRqf9zGMDg0vpZK',
         email: 'moderador3@gmail.com',
         estadoRegistro: 'ACTIVO',
         _class: 'co.edu.uniquindio.unilocal.modelo.documentos.Moderador'
@@ -341,7 +346,7 @@ db.moderadores.insertMany([
     {
         _id: '4',
         nombre: 'Moderador 4',
-        password: '1234',
+        password: '$2a$10$7rAHIP6beAU7xM/9ks5xDOIbIkR9F3FFQYxbf2WRqf9zGMDg0vpZK',
         email: 'moderador4@gmail.com',
         estadoRegistro: 'ACTIVO',
         _class: 'co.edu.uniquindio.unilocal.modelo.documentos.Moderador'
@@ -349,9 +354,18 @@ db.moderadores.insertMany([
     {
         _id: '5',
         nombre: 'Moderador 5',
-        password: '1234',
+        password: '$2a$10$7rAHIP6beAU7xM/9ks5xDOIbIkR9F3FFQYxbf2WRqf9zGMDg0vpZK',
         email: 'moderador5@gmail.com',
         estadoRegistro: 'ACTIVO',
         _class: 'co.edu.uniquindio.unilocal.modelo.documentos.Moderador'
     }
+]);
+
+db.favoritos.insertMany([
+    {
+        _id: '1',
+        codigoCliente: '1',
+        codigoNegocio: '1',
+        _class: 'co.edu.uniquindio.unilocal.modelo.documentos.Favorito'
+    },
 ]);
