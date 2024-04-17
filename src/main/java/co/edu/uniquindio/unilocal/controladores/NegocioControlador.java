@@ -31,23 +31,23 @@ public class NegocioControlador {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Negocio actualizado correctamente"));
     }
 
-    @DeleteMapping("/eliminar-negocio")
+    @DeleteMapping("/eliminar-negocio/{idNegocio}")
     public ResponseEntity<MensajeDTO<String>> eliminarNegocio(@PathVariable String idNegocio) throws Exception {
         negocioServicio.eliminarNegocio(idNegocio);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Negocio eliminado correctamente"));
     }
 
-    @GetMapping("/obtener-negocio")
+    @GetMapping("/obtener-negocio/{idNegocio}")
     public ResponseEntity<MensajeDTO<DetalleNegocioDTO>> obtenerNegocio(@PathVariable String idNegocio) throws Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.obtenerNegocio(idNegocio)));
     }
 
-    @GetMapping("/buscar-negocio-nombre")
+    @GetMapping("/buscar-negocio-nombre/{nombre}")
     public ResponseEntity<MensajeDTO<List<DetalleNegocioDTO>>> buscarNegocioNombre(@PathVariable String nombre) throws  Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.buscarNegocioNombre(nombre)));
     }
 
-    @GetMapping("/buscar-negocio-tipo")
+    @GetMapping("/buscar-negocio-tipo/{tipoNegocio}")
     public ResponseEntity<MensajeDTO<List<DetalleNegocioDTO>>> buscarNegocioTipo(@PathVariable TipoNegocio tipoNegocio) throws  Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.buscarNegocioTipo(tipoNegocio)));
     }

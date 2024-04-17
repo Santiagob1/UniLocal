@@ -22,7 +22,7 @@ public class ComentarioControlador {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Comentario registrado exitosamente"));
     }
 
-    @GetMapping("/listar-comentarios-negocio")
+    @GetMapping("/listar-comentarios-negocio/{idNegocio}")
     public ResponseEntity<MensajeDTO<List<ListarComentariosNegocioDTO>>> listarComentariosNegocio(@PathVariable String idNegocio) throws  Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, comentarioServicio.listarComentariosNegocio(idNegocio)));
     }
