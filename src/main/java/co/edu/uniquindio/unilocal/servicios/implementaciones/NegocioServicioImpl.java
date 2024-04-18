@@ -283,11 +283,16 @@ public class NegocioServicioImpl implements NegocioServicio {
     private double calcularPromedioCalificacion(String idNegocio) {
         List<ListarComentariosNegocioDTO> lstComentarios = comentarioServicio.listarComentariosNegocio(idNegocio);
         int sumatoria = 0;
-        for (ListarComentariosNegocioDTO comentario : lstComentarios) {
-            sumatoria += comentario.calificacion();
+        if (lstComentarios != null && lstComentarios.size() > 0) {
+
+            for (ListarComentariosNegocioDTO comentario : lstComentarios) {
+                sumatoria += comentario.calificacion();
+            }
+
+            return sumatoria / lstComentarios.size();
         }
 
-        return sumatoria / lstComentarios.size();
+        return sumatoria / 1;
     }
 
     /**

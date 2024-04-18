@@ -25,7 +25,7 @@ public class HistorialTest {
                     "1010",
                     "Test de historial de revisión",
                     EstadoNegocio.RECHAZADO,
-                    LocalDateTime.now()
+                    LocalDateTime.now().toString()
             );
 
             String codigo = historialServicio.guardarHistorial(historialRevision);
