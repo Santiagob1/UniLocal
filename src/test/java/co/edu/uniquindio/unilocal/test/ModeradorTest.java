@@ -19,8 +19,13 @@ public class ModeradorTest {
     public void autorizarRechazarNegocio() {
         try {
             AutorizarRechazarNegocioDTO autorizarRechazarNegocioDTO = new AutorizarRechazarNegocioDTO(
+<<<<<<< HEAD
                     "1",
                     "1",
+=======
+                    "1111",
+                    "1010",
+>>>>>>> e3c9dc2f6788af5650fe98b7133f87f529e16c81
                     EstadoNegocio.APROBADO,
                     "Test de autorización"
             );

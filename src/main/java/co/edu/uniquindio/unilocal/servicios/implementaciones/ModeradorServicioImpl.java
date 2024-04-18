@@ -25,6 +25,7 @@ public class ModeradorServicioImpl implements ModeradorServicio {
     /**
      * Permite autorizar o rechazar un negocio creado
      * con estado pendiente
+     *
      * @param autorizarRechazarNegocioDTO
      * @return
      * @throws Exception
@@ -56,11 +57,16 @@ public class ModeradorServicioImpl implements ModeradorServicio {
                 cuerpo = "El negocio " + negocio.nombre() + " fue " + autorizarRechazarNegocioDTO.estado();
             }
 
-            emailServicio.enviarEmail(new EmailDTO(
-                    "Estado de negocio",
-                    cuerpo,
-                    cliente.getEmail()
-            ));
+            // Verificar si la dirección de correo electrónico del cliente no es nula ni está vacía
+            if (cliente != null && cliente.getEmail() != null && !cliente.getEmail().isEmpty()) {
+                emailServicio.enviarEmail(new EmailDTO(
+                        "Estado de negocio",
+                        cuerpo,
+                        cliente.getEmail()
+                ));
+            } else {
+                throw new Exception("La dirección de correo electrónico del cliente es nula o vacía.");
+            }
 
             HistorialRevision historialRevision = new HistorialRevision(
                     "",
@@ -79,4 +85,5 @@ public class ModeradorServicioImpl implements ModeradorServicio {
 
         return respuesta;
     }
+
 }

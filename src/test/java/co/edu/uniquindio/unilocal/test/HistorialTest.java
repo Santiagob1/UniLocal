@@ -24,7 +24,11 @@ public class HistorialTest {
                     "1",
                     "Test de historial de revisión",
                     EstadoNegocio.RECHAZADO,
+<<<<<<< HEAD
                     "2024-04-18"
+=======
+                    LocalDateTime.now().toString()
+>>>>>>> e3c9dc2f6788af5650fe98b7133f87f529e16c81
             );
 
             String codigo = historialServicio.guardarHistorial(historialRevision);

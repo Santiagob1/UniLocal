@@ -21,7 +21,11 @@ public class ComentarioTest {
     public void crearComentario() {
         try {
             CrearComentarioDTO crearComentarioDTO = new CrearComentarioDTO(
+<<<<<<< HEAD
                     "2024-04-18",
+=======
+                    LocalDateTime.now().toString(),
+>>>>>>> e3c9dc2f6788af5650fe98b7133f87f529e16c81
                     1,
                     "1",
                     "1",
@@ -51,7 +55,11 @@ public class ComentarioTest {
     public void responderComentario() {
         try {
             CrearComentarioDTO crearComentarioDTO = new CrearComentarioDTO(
+<<<<<<< HEAD
                     "2024-04-18",
+=======
+                    LocalDateTime.now().toString(),
+>>>>>>> e3c9dc2f6788af5650fe98b7133f87f529e16c81
                     1,
                     "1",
                     "1",
