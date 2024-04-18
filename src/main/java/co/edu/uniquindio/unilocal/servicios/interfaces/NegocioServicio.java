@@ -26,6 +26,12 @@ public interface NegocioServicio {
     boolean actualizarNegocio(ActualizacionNegocioDTO actualizacionNegocioDTO);
 
     /**
+     * Permite actualizar el negocio
+     * @param negocio
+     */
+    void actualizarNegocioDirecto(Negocio negocio);
+
+    /**
      * Permite eliminar logicamente un negocio
      * @param idNegocio
      * @return

@@ -1,13 +1,13 @@
 package co.edu.uniquindio.unilocal.modelo.enums;
 
 public enum TipoNegocio {
-    PANADERIA(001, "panaderia"),
-    CAFETERIA(002, "cafeteria"),
-    HOTEL(003, "hotel"),
-    BAR(004, "bar"),
-    RESTAURANTE(005, "restaurante"),
-    DISCOTECA(006, "discoteca"),
-    TIENDA(007, "tienda");
+    PANADERIA(001, "PANADERIA"),
+    CAFETERIA(002, "CAFETERIA"),
+    HOTEL(003, "HOTEL"),
+    BAR(004, "BAR"),
+    RESTAURANTE(005, "RESTAURANTE"),
+    DISCOTECA(006, "DISCOTECA"),
+    TIENDA(007, "TIENDA");
 
     private final int codigo;
     private final String tipoNegocio;

@@ -74,6 +74,15 @@ public class NegocioServicioImpl implements NegocioServicio {
     }
 
     /**
+     * Përmite actualizar un negocio directo
+     * @param negocio
+     */
+    @Override
+    public void actualizarNegocioDirecto(Negocio negocio) {
+        negocioRepo.save(negocio);
+    }
+
+    /**
      * Permite eliminar logicamente un negocio
      * @param idNegocio
      * @return
@@ -123,7 +132,7 @@ public class NegocioServicioImpl implements NegocioServicio {
      */
     @Override
     public List<DetalleNegocioDTO> buscarNegocioNombre(String nombreNegocio) {
-        List<Negocio> negocios = negocioRepo.findByNombre(nombreNegocio);
+        List<Negocio> negocios = negocioRepo.findByNombreContaining(nombreNegocio);
         if (negocios != null) {
             return negocios.stream().filter(x -> x.getEstado().equals(EstadoNegocio.APROBADO) && x.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
                     .map(negocio -> new DetalleNegocioDTO(
@@ -148,7 +157,7 @@ public class NegocioServicioImpl implements NegocioServicio {
      */
     @Override
     public List<DetalleNegocioDTO> buscarNegocioTipo(TipoNegocio tipoNegocio) {
-        List<Negocio> negocios = negocioRepo.findByTipoNegocio(tipoNegocio);
+        List<Negocio> negocios = negocioRepo.findByTipoNegocio(tipoNegocio.toString());
         if (negocios != null) {
             return negocios.stream().filter(x -> x.getEstado().equals(EstadoNegocio.APROBADO) && x.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
                     .map(negocio -> new DetalleNegocioDTO(

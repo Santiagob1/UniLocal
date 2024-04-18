@@ -17,8 +17,8 @@ import java.util.List;
 @RequestMapping("api/moderador")
 @RequiredArgsConstructor
 public class ModeradorControlador {
-    private ModeradorServicio moderadorServicio;
-    private NegocioServicio negocioServicio;
+    private final ModeradorServicio moderadorServicio;
+    private final NegocioServicio negocioServicio;
 
     @PostMapping("/autorizar-rechazar-negocio")
     public ResponseEntity<MensajeDTO<String>> autorizarRechazarNegocio(@Valid @RequestBody AutorizarRechazarNegocioDTO autorizarRechazarNegocioDTO) throws Exception {

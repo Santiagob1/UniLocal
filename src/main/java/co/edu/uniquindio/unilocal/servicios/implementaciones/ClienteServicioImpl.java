@@ -131,9 +131,11 @@ public class ClienteServicioImpl implements CLienteServicio {
         Optional<Cliente> clienteOptional = clienteRepo.findByEmail(recuperarPasswordDTO.email());
         if (clienteOptional.isPresent()) {
             Cliente cliente = clienteOptional.get();
-            // Actualizar la contraseña del cliente
-            // Agregar método para encriptar la contraseña
-            cliente.setPassword(recuperarPasswordDTO.contrasenaNueva());
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String passwordEncriptada = passwordEncoder.encode(recuperarPasswordDTO.contrasenaNueva());
+
+            cliente.setPassword(passwordEncriptada);
             clienteRepo.save(cliente);
             return true;
         } else {

@@ -28,7 +28,7 @@ public class ComentarioControlador {
     }
 
     @PostMapping("/responder-comentario")
-    public ResponseEntity<MensajeDTO<String>> responderComentario(CrearComentarioDTO crearComentarioDTO) throws Exception {
+    public ResponseEntity<MensajeDTO<String>> responderComentario(@Valid @RequestBody CrearComentarioDTO crearComentarioDTO) throws Exception {
         comentarioServicio.responderComentario(crearComentarioDTO);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Respuesta creada exitosamente"));
     }

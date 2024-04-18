@@ -34,11 +34,12 @@ public class ModeradorServicioImpl implements ModeradorServicio {
         boolean respuesta = false;
         DetalleNegocioDTO negocio = null;
         Cliente cliente = new Cliente();
+        Negocio negocioBD = new Negocio();
         if (negocioServicio.cambiarEstado(new CambiarEstadoDTO(autorizarRechazarNegocioDTO.idNegocio(), autorizarRechazarNegocioDTO.estado()))) {
             negocio = negocioServicio.obtenerNegocio(autorizarRechazarNegocioDTO.idNegocio());
+            negocioBD = negocioServicio.obtenerNegocioDirecto(autorizarRechazarNegocioDTO.idNegocio());
 
             if (autorizarRechazarNegocioDTO.estado().equals(EstadoNegocio.RECHAZADO)) {
-                Negocio negocioBD = negocioServicio.obtenerNegocioDirecto(autorizarRechazarNegocioDTO.idNegocio());
                 negocioBD.setFechaRechazo(LocalDate.now().toString());
                 negocioServicio.actualizarNegocioRechazo(negocioBD);
             }
@@ -69,7 +70,9 @@ public class ModeradorServicioImpl implements ModeradorServicio {
                     LocalDateTime.now().toString()
             );
 
-            historialServicio.guardarHistorial(historialRevision);
+            negocioBD.getHistorialRevisiones().add(historialRevision);
+
+            negocioServicio.actualizarNegocioDirecto(negocioBD);
 
             respuesta = true;
         }

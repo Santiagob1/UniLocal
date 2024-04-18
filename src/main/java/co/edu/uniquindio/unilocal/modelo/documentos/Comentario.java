@@ -20,17 +20,17 @@ public class Comentario {
     private String codigo;
     private String fecha;
     private int calificacion;
-    private String codigoCLiente;
+    private String codigoCliente;
     private String codigoNegocio;
     private String mensaje;
 
     private String idComentarioPadre;
 
     @Builder
-    public Comentario(String fecha, int calificacion, String codigoCLiente, String codigoNegocio, String mensaje, String idComentarioPadre) {
+    public Comentario(String fecha, int calificacion, String codigoCliente, String codigoNegocio, String mensaje, String idComentarioPadre) {
         this.fecha = fecha;
         this.calificacion = calificacion;
-        this.codigoCLiente = codigoCLiente;
+        this.codigoCliente = codigoCliente;
         this.codigoNegocio = codigoNegocio;
         this.mensaje = mensaje;
         this.idComentarioPadre = idComentarioPadre;

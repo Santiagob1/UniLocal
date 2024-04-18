@@ -10,7 +10,7 @@ public record CrearComentarioDTO(
 
         @NotNull String fecha,
         @NotNull int calificacion,
-        @NotBlank String codigoCLiente,
+        @NotBlank String codigoCliente,
         @NotBlank String codigoNegocio,
         @NotBlank String mensaje,
         @NotBlank String idComentarioPadre
