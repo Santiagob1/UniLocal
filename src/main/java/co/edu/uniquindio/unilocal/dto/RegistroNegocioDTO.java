@@ -6,17 +6,18 @@ import co.edu.uniquindio.unilocal.modelo.entidades.Ubicacion;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoRegistro;
 import co.edu.uniquindio.unilocal.modelo.enums.TipoNegocio;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
 public record RegistroNegocioDTO(
         @NotBlank String codigoCliente,
-        @NotBlank Ubicacion ubicacion,
+        @NotNull Ubicacion ubicacion,
         @NotBlank @Length(max = 100) String nombre,
         @NotBlank String descripcion,
-        @NotBlank List<Horario> horario,
-        @NotBlank List<ImagenDTO> imagenes,
-        @NotBlank TipoNegocio tipoNegocio,
-        @NotBlank List<String> telefonos) {
+        @NotNull List<Horario> horario,
+        @NotNull List<String> imagenes,
+        @NotNull TipoNegocio tipoNegocio,
+        @NotNull List<String> telefonos) {
 }

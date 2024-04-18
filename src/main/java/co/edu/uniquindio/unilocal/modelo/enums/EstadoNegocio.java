@@ -2,7 +2,7 @@ package co.edu.uniquindio.unilocal.modelo.enums;
 
 public enum EstadoNegocio {
 
-    APROVADO(001, "aprobado"),
+    APROBADO(001, "aprobado"),
     RECHAZADO(002, "rechazado"),
     PENDIENTE(003, "pendiente");
 

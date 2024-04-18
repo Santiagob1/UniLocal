@@ -22,7 +22,7 @@ public class ComentarioTest {
     public void crearComentario() {
         try {
             CrearComentarioDTO crearComentarioDTO = new CrearComentarioDTO(
-                    LocalDateTime.now(),
+                    LocalDateTime.now().toString(),
                     1,
                     "1111",
                     "111",
@@ -52,7 +52,7 @@ public class ComentarioTest {
     public void responderComentario() {
         try {
             CrearComentarioDTO crearComentarioDTO = new CrearComentarioDTO(
-                    LocalDateTime.now(),
+                    LocalDateTime.now().toString(),
                     1,
                     "1111",
                     "111",

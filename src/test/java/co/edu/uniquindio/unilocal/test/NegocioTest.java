@@ -30,16 +30,13 @@ public class NegocioTest {
 
             List<Horario> lstHorario = new ArrayList<>();
             lstHorario.add(new Horario(
-                LocalTime.of(8, 0, 0),
-                LocalTime.of(8, 0, 0),
+                "08:00",
+                    "08:00",
                     "Lunes"
             ));
 
-            List<ImagenDTO> lstImages = new ArrayList<>();
-            lstImages.add(new ImagenDTO(
-                    "1",
-                    "www.google.com"
-            ));
+            List<String> lstImages = new ArrayList<>();
+            lstImages.add("www.google.com");
 
             RegistroNegocioDTO registroNegocioDTO = new RegistroNegocioDTO(
                     "1111",
@@ -66,16 +63,13 @@ public class NegocioTest {
         try {
             List<Horario> lstHorario = new ArrayList<>();
             lstHorario.add(new Horario(
-                    LocalTime.of(8, 0, 0),
-                    LocalTime.of(8, 0, 0),
+                    "08:00",
+                    "08:00",
                     "Lunes"
             ));
 
-            List<ImagenDTO> lstImages = new ArrayList<>();
-            lstImages.add(new ImagenDTO(
-                    "1",
-                    "www.google.com"
-            ));
+            List<String> lstImages = new ArrayList<>();
+            lstImages.add("www.google.com");
 
             List<Menu> lstMenu = new ArrayList<>();
 
@@ -181,7 +175,7 @@ public class NegocioTest {
         try {
             CambiarEstadoDTO cambiarEstadoDTO = new CambiarEstadoDTO(
                     "1111",
-                    EstadoNegocio.APROVADO
+                    EstadoNegocio.APROBADO
             );
 
             boolean respuesta = negocioServicio.cambiarEstado(cambiarEstadoDTO);

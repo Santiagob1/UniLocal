@@ -1,6 +1,7 @@
 package co.edu.uniquindio.unilocal.test;
 
 import co.edu.uniquindio.unilocal.dto.InicioSesionDTO;
+import co.edu.uniquindio.unilocal.dto.TokenDTO;
 import co.edu.uniquindio.unilocal.servicios.interfaces.CuentaServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,16 +16,32 @@ public class CuentaTest {
     private CuentaServicio cuentaServicio;
 
     @Test
-    public void inicarSesion() {
+    public void inicarSesionCliente() {
         try {
             InicioSesionDTO inicioSesionDTO = new InicioSesionDTO(
                     "natisnjgs",
                     "1234"
             );
 
-            boolean respuesta = cuentaServicio.iniciarSesion(inicioSesionDTO);
+            TokenDTO respuesta = cuentaServicio.iniciarSesionCliente(inicioSesionDTO);
 
-            Assertions.assertTrue(respuesta);
+            Assertions.assertNotNull(respuesta);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Test
+    public void inicarSesionModerador() {
+        try {
+            InicioSesionDTO inicioSesionDTO = new InicioSesionDTO(
+                    "moderador1",
+                    "1234"
+            );
+
+            TokenDTO respuesta = cuentaServicio.iniciarSesionModerador(inicioSesionDTO);
+
+            Assertions.assertNotNull(respuesta);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

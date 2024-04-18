@@ -3,7 +3,7 @@ package co.edu.uniquindio.unilocal.servicios.interfaces;
 import co.edu.uniquindio.unilocal.dto.AutorizarRechazarNegocioDTO;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoNegocio;
 
-public interface ModeradorServicio extends CuentaServicio{
+public interface ModeradorServicio {
 
     /**
      * Permite autorizar o rechazar un negocio

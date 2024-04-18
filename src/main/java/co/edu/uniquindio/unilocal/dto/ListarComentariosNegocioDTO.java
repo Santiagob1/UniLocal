@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 
 public record ListarComentariosNegocioDTO(
         String codigo,
-        LocalDateTime fecha,
+        String fecha,
         String nombreCLiente,
         String idComentarioPadre,
-        String mensaje) {
+        String mensaje,
+        int calificacion) {
 }

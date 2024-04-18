@@ -13,6 +13,7 @@ public record DetalleNegocioDTO(
         String codigoCliente,
         EstadoNegocio estadoNegocio,
         Ubicacion ubicacion,
-        List<Menu> lstMenu
+        List<Menu> lstMenu,
+        double calificacionPromedio
 ) {
 }

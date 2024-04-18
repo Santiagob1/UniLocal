@@ -1,19 +1,20 @@
 package co.edu.uniquindio.unilocal.servicios.implementaciones;
 
-import co.edu.uniquindio.unilocal.dto.ActualizacionNegocioDTO;
-import co.edu.uniquindio.unilocal.dto.CambiarEstadoDTO;
-import co.edu.uniquindio.unilocal.dto.DetalleNegocioDTO;
-import co.edu.uniquindio.unilocal.dto.RegistroNegocioDTO;
+import co.edu.uniquindio.unilocal.dto.*;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoNegocio;
 import co.edu.uniquindio.unilocal.modelo.documentos.Negocio;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoRegistro;
 import co.edu.uniquindio.unilocal.modelo.enums.TipoNegocio;
 import co.edu.uniquindio.unilocal.repositorios.NegocioRepo;
+import co.edu.uniquindio.unilocal.servicios.interfaces.ComentarioServicio;
 import co.edu.uniquindio.unilocal.servicios.interfaces.NegocioServicio;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 public class NegocioServicioImpl implements NegocioServicio {
 
     private final NegocioRepo negocioRepo;
+    private final ComentarioServicio comentarioServicio;
 
     /**
      * Permite crear el negocio en la base de datos
@@ -32,8 +34,6 @@ public class NegocioServicioImpl implements NegocioServicio {
      */
     @Override
     public String crearNegocio(RegistroNegocioDTO negocioDTO) {
-        Map<String, String> imagenes = negocioDTO.imagenes().stream().collect(
-                Collectors.toMap(x -> x.id(), x -> x.url()));
 
         Negocio negocio = Negocio.builder()
                 .nombre(negocioDTO.nombre())
@@ -43,7 +43,7 @@ public class NegocioServicioImpl implements NegocioServicio {
                 .ubicacion(negocioDTO.ubicacion())
                 .estado(EstadoNegocio.PENDIENTE)
                 .horario(negocioDTO.horario())
-                .imagenes(imagenes)
+                .imagenes(negocioDTO.imagenes())
                 .build();
         Negocio negocioGuardado = negocioRepo.save(negocio);
         return negocioGuardado.getCodigo();
@@ -56,14 +56,12 @@ public class NegocioServicioImpl implements NegocioServicio {
      */
     @Override
     public boolean actualizarNegocio(ActualizacionNegocioDTO actualizacionNegocioDTO) {
-        Map<String, String> imagenes = actualizacionNegocioDTO.imagenes().stream().collect(
-                Collectors.toMap(x -> x.id(), x -> x.url()));
         Negocio negocio = negocioRepo.findById(actualizacionNegocioDTO.codigo()).orElse(null);
         if (negocio != null) {
             negocio.setNombre(actualizacionNegocioDTO.nombre());
             negocio.setDescripcion(actualizacionNegocioDTO.descripcion());
             negocio.setUbicacion(actualizacionNegocioDTO.ubicacion());
-            negocio.setImagenes(imagenes);
+            negocio.setImagenes(actualizacionNegocioDTO.imagenes());
             negocio.setTipoNegocio(actualizacionNegocioDTO.tipoNegocio());
             negocio.setLstMenuNegocio(actualizacionNegocioDTO.lstMenu());
             negocio.setHorario(actualizacionNegocioDTO.horario());
@@ -73,6 +71,15 @@ public class NegocioServicioImpl implements NegocioServicio {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Përmite actualizar un negocio directo
+     * @param negocio
+     */
+    @Override
+    public void actualizarNegocioDirecto(Negocio negocio) {
+        negocioRepo.save(negocio);
     }
 
     /**
@@ -110,7 +117,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                     negocio.getCodigoCliente(),
                     negocio.getEstado(),
                     negocio.getUbicacion(),
-                    negocio.getLstMenuNegocio()
+                    negocio.getLstMenuNegocio(),
+                    calcularPromedioCalificacion(negocio.getCodigo())
             );
         }
         return null;
@@ -124,9 +132,9 @@ public class NegocioServicioImpl implements NegocioServicio {
      */
     @Override
     public List<DetalleNegocioDTO> buscarNegocioNombre(String nombreNegocio) {
-        List<Negocio> negocios = negocioRepo.findByNombre(nombreNegocio);
+        List<Negocio> negocios = negocioRepo.findByNombreContaining(nombreNegocio);
         if (negocios != null) {
-            return negocios.stream().filter(x -> x.getEstado().equals(EstadoNegocio.APROVADO) && x.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
+            return negocios.stream().filter(x -> x.getEstado().equals(EstadoNegocio.APROBADO) && x.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
                     .map(negocio -> new DetalleNegocioDTO(
                             negocio.getCodigo(),
                             negocio.getNombre(),
@@ -134,7 +142,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                             negocio.getCodigoCliente(),
                             negocio.getEstado(),
                             negocio.getUbicacion(),
-                            negocio.getLstMenuNegocio()
+                            negocio.getLstMenuNegocio(),
+                            calcularPromedioCalificacion(negocio.getCodigo())
                     ))
                     .collect(Collectors.toList());
         }
@@ -148,9 +157,9 @@ public class NegocioServicioImpl implements NegocioServicio {
      */
     @Override
     public List<DetalleNegocioDTO> buscarNegocioTipo(TipoNegocio tipoNegocio) {
-        List<Negocio> negocios = negocioRepo.findByTipoNegocio(tipoNegocio);
+        List<Negocio> negocios = negocioRepo.findByTipoNegocio(tipoNegocio.toString());
         if (negocios != null) {
-            return negocios.stream().filter(x -> x.getEstado().equals(EstadoNegocio.APROVADO) && x.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
+            return negocios.stream().filter(x -> x.getEstado().equals(EstadoNegocio.APROBADO) && x.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
                     .map(negocio -> new DetalleNegocioDTO(
                             negocio.getCodigo(),
                             negocio.getNombre(),
@@ -158,7 +167,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                             negocio.getCodigoCliente(),
                             negocio.getEstado(),
                             negocio.getUbicacion(),
-                            negocio.getLstMenuNegocio()
+                            negocio.getLstMenuNegocio(),
+                            calcularPromedioCalificacion(negocio.getCodigo())
                     ))
                     .collect(Collectors.toList());
         }
@@ -182,7 +192,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                             negocio.getCodigoCliente(),
                             negocio.getEstado(),
                             negocio.getUbicacion(),
-                            negocio.getLstMenuNegocio()
+                            negocio.getLstMenuNegocio(),
+                            calcularPromedioCalificacion(negocio.getCodigo())
                     ))
                     .collect(Collectors.toList());
         }
@@ -207,7 +218,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                             negocio.getCodigoCliente(),
                             negocio.getEstado(),
                             negocio.getUbicacion(),
-                            negocio.getLstMenuNegocio()
+                            negocio.getLstMenuNegocio(),
+                            calcularPromedioCalificacion(negocio.getCodigo())
                     ))
                     .collect(Collectors.toList());
         }
@@ -224,7 +236,19 @@ public class NegocioServicioImpl implements NegocioServicio {
         List<Negocio> lstNegocios = negocioRepo.findAll();
 
         if (lstNegocios != null && lstNegocios.size() > 0) {
-            return lstNegocios.stream()
+
+            LocalDate currentDate = LocalDate.now();
+
+            lstNegocios.forEach(negocio -> {
+                long dias = ChronoUnit.DAYS.between(LocalDate.parse(negocio.getFechaRechazo()), currentDate);
+                if (dias == 5) {
+                    negocio.setEstadoRegistro(EstadoRegistro.INACTIVO);
+                    negocioRepo.save(negocio);
+                }
+            });
+
+
+            return lstNegocios.stream().filter(negocio -> negocio.getEstadoRegistro().equals(EstadoRegistro.ACTIVO))
                     .map(negocio -> new DetalleNegocioDTO(
                             negocio.getCodigo(),
                             negocio.getNombre(),
@@ -232,7 +256,8 @@ public class NegocioServicioImpl implements NegocioServicio {
                             negocio.getCodigoCliente(),
                             negocio.getEstado(),
                             negocio.getUbicacion(),
-                            negocio.getLstMenuNegocio()
+                            negocio.getLstMenuNegocio(),
+                            calcularPromedioCalificacion(negocio.getCodigo())
                     ))
                     .collect(Collectors.toList());
         }
@@ -255,10 +280,19 @@ public class NegocioServicioImpl implements NegocioServicio {
         return false;
     }
 
-    @Override
-    public double calcularPromedioCalificacion() {
-        // Lógica para calcular el promedio de calificaciones de los negocios
-        return 0; // Por ahora, solo devuelve 0
+    private double calcularPromedioCalificacion(String idNegocio) {
+        List<ListarComentariosNegocioDTO> lstComentarios = comentarioServicio.listarComentariosNegocio(idNegocio);
+        int sumatoria = 0;
+        if (lstComentarios != null && lstComentarios.size() > 0) {
+
+            for (ListarComentariosNegocioDTO comentario : lstComentarios) {
+                sumatoria += comentario.calificacion();
+            }
+
+            return sumatoria / lstComentarios.size();
+        }
+
+        return sumatoria / 1;
     }
 
     /**
@@ -277,5 +311,16 @@ public class NegocioServicioImpl implements NegocioServicio {
         }
 
         return negocio.get();
+    }
+
+    /**
+     * Permite actualizar el negocio con la fecha de rechazo del
+     * moderador
+     * @param negocio
+     * @throws Exception
+     */
+    @Override
+    public void actualizarNegocioRechazo(Negocio negocio) throws Exception {
+        negocioRepo.save(negocio);
     }
 }

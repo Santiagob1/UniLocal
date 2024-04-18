@@ -13,16 +13,20 @@ import co.edu.uniquindio.unilocal.repositorios.NegocioRepo;
 import co.edu.uniquindio.unilocal.servicios.interfaces.ComentarioServicio;
 import co.edu.uniquindio.unilocal.servicios.interfaces.EmailServicio;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@Transactional
+@RequiredArgsConstructor
 public class ComentarioServicioImpl implements ComentarioServicio {
 
     private final ComentarioRepo comentarioRepo;
@@ -44,7 +48,7 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         String mensajeCorreo = "";
         String codigoGuardado = "";
 
-        cliente = clienteRepo.findByCodigo(crearComentarioDTO.codigoCLiente()).orElse(null);
+        cliente = clienteRepo.findByCodigo(crearComentarioDTO.codigoCliente()).orElse(null);
 
         if (cliente != null) {
             negocio = negocioRepo.findById(crearComentarioDTO.codigoNegocio()).orElse(null);
@@ -52,9 +56,10 @@ public class ComentarioServicioImpl implements ComentarioServicio {
                 Comentario comentario = Comentario.builder()
                         .calificacion(crearComentarioDTO.calificacion())
                         .codigoNegocio(crearComentarioDTO.codigoNegocio())
-                        .codigoCLiente(crearComentarioDTO.codigoCLiente())
+                        .codigoCliente(crearComentarioDTO.codigoCliente())
                         .mensaje(crearComentarioDTO.mensaje())
                         .idComentarioPadre(crearComentarioDTO.idComentarioPadre())
+                        .fecha(crearComentarioDTO.fecha())
                         .build();
                 codigoGuardado = comentarioRepo.save(comentario).getCodigo();
                 if (!codigoGuardado.equals("")) {
@@ -66,7 +71,7 @@ public class ComentarioServicioImpl implements ComentarioServicio {
                     emailServicio.enviarEmail(new EmailDTO(
                             "Comentario de negocip",
                             mensajeCorreo,
-                            propietario.getEmail()
+                            "camiramos234@gmail.com"
                     ));
                 }
             } else {
@@ -97,9 +102,10 @@ public class ComentarioServicioImpl implements ComentarioServicio {
                     .map(comentario -> new ListarComentariosNegocioDTO(
                             comentario.getCodigo(),
                             comentario.getFecha(),
-                            clienteRepo.findByCodigo(comentario.getCodigoCLiente()).get().getNombre(),
+                            clienteRepo.findByCodigo(comentario.getCodigoCliente()).get().getNombre(),
                             comentario.getIdComentarioPadre(),
-                            comentario.getMensaje()))
+                            comentario.getMensaje(),
+                            comentario.getCalificacion()))
                     .collect(Collectors.toList());
         } else {
             // Si el Optional no contiene un valor, se devuelve una lista vacía
@@ -121,7 +127,7 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         String mensajeCorreo = "";
         String codigoGuardado = "";
 
-        cliente = clienteRepo.findByCodigo(crearComentarioDTO.codigoCLiente()).orElse(null);
+        cliente = clienteRepo.findByCodigo(crearComentarioDTO.codigoCliente()).orElse(null);
 
         if (cliente != null) {
             negocio = negocioRepo.findById(crearComentarioDTO.codigoNegocio()).orElse(null);
@@ -129,14 +135,14 @@ public class ComentarioServicioImpl implements ComentarioServicio {
                 Comentario comentario = Comentario.builder()
                         .calificacion(crearComentarioDTO.calificacion())
                         .codigoNegocio(crearComentarioDTO.codigoNegocio())
-                        .codigoCLiente(crearComentarioDTO.codigoCLiente())
+                        .codigoCliente(crearComentarioDTO.codigoCliente())
                         .mensaje(crearComentarioDTO.mensaje())
                         .idComentarioPadre(crearComentarioDTO.idComentarioPadre())
                         .build();
                 codigoGuardado = comentarioRepo.save(comentario).getCodigo();
                 if (!codigoGuardado.equals("")) {
                     Comentario comentarioPadre = comentarioRepo.findById(crearComentarioDTO.idComentarioPadre()).orElse(null);
-                    usuarioComentarioPadre = clienteRepo.findByCodigo(comentarioPadre.getCodigoCLiente()).orElse(null);
+                    usuarioComentarioPadre = clienteRepo.findByCodigo(comentarioPadre.getCodigoCliente()).orElse(null);
                     mensajeCorreo = "El usuario " + cliente.getNombre() + " respondió tú comentario ";
                     mensajeCorreo += "la respuesta fue la siguiente: \n";
                     mensajeCorreo += crearComentarioDTO.mensaje();

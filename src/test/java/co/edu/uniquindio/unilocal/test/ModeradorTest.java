@@ -22,7 +22,7 @@ public class ModeradorTest {
             AutorizarRechazarNegocioDTO autorizarRechazarNegocioDTO = new AutorizarRechazarNegocioDTO(
                     "1111",
                     "1010",
-                    EstadoNegocio.APROVADO,
+                    EstadoNegocio.APROBADO,
                     "Test de autorización"
             );
 

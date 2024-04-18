@@ -2,12 +2,14 @@ package co.edu.uniquindio.unilocal.servicios.implementaciones;
 
 import co.edu.uniquindio.unilocal.dto.*;
 import co.edu.uniquindio.unilocal.modelo.documentos.Cliente;
+import co.edu.uniquindio.unilocal.modelo.documentos.Negocio;
 import co.edu.uniquindio.unilocal.modelo.entidades.HistorialRevision;
 import co.edu.uniquindio.unilocal.modelo.enums.EstadoNegocio;
 import co.edu.uniquindio.unilocal.servicios.interfaces.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -19,16 +21,11 @@ public class ModeradorServicioImpl implements ModeradorServicio {
     private final EmailServicio emailServicio;
     private final CLienteServicio cLienteServicio;
     private final HistorialServicio historialServicio;
-    @Override
-    public boolean iniciarSesion(InicioSesionDTO inicioSesionDTO) throws Exception {
-        // Lógica para iniciar sesión de un moderador
-        // Esto podría ser similar a la implementación en CuentaServicioImpl
-        return false; // Por ahora, solo devuelve false
-    }
 
     /**
      * Permite autorizar o rechazar un negocio creado
      * con estado pendiente
+     *
      * @param autorizarRechazarNegocioDTO
      * @return
      * @throws Exception
@@ -38,9 +35,17 @@ public class ModeradorServicioImpl implements ModeradorServicio {
         boolean respuesta = false;
         DetalleNegocioDTO negocio = null;
         Cliente cliente = new Cliente();
+        Negocio negocioBD = new Negocio();
         if (negocioServicio.cambiarEstado(new CambiarEstadoDTO(autorizarRechazarNegocioDTO.idNegocio(), autorizarRechazarNegocioDTO.estado()))) {
             negocio = negocioServicio.obtenerNegocio(autorizarRechazarNegocioDTO.idNegocio());
-            cliente = cLienteServicio.obtenerCliente(negocio.codigoCliente());
+            negocioBD = negocioServicio.obtenerNegocioDirecto(autorizarRechazarNegocioDTO.idNegocio());
+
+            if (autorizarRechazarNegocioDTO.estado().equals(EstadoNegocio.RECHAZADO)) {
+                negocioBD.setFechaRechazo(LocalDate.now().toString());
+                negocioServicio.actualizarNegocioRechazo(negocioBD);
+            }
+
+            cliente = cLienteServicio.obtenerClienteDirecto(negocio.codigoCliente());
             String cuerpo = "";
 
             if (autorizarRechazarNegocioDTO.estado().equals(EstadoNegocio.RECHAZADO)) {
@@ -52,25 +57,33 @@ public class ModeradorServicioImpl implements ModeradorServicio {
                 cuerpo = "El negocio " + negocio.nombre() + " fue " + autorizarRechazarNegocioDTO.estado();
             }
 
-            emailServicio.enviarEmail(new EmailDTO(
-                    "Estado de negocio",
-                    cuerpo,
-                    cliente.getEmail()
-            ));
+            // Verificar si la dirección de correo electrónico del cliente no es nula ni está vacía
+            if (cliente != null && cliente.getEmail() != null && !cliente.getEmail().isEmpty()) {
+                emailServicio.enviarEmail(new EmailDTO(
+                        "Estado de negocio",
+                        cuerpo,
+                        cliente.getEmail()
+                ));
+            } else {
+                throw new Exception("La dirección de correo electrónico del cliente es nula o vacía.");
+            }
 
             HistorialRevision historialRevision = new HistorialRevision(
                     "",
                     autorizarRechazarNegocioDTO.idModerador(),
                     autorizarRechazarNegocioDTO.motivo(),
                     autorizarRechazarNegocioDTO.estado(),
-                    LocalDateTime.now()
+                    LocalDateTime.now().toString()
             );
 
-            historialServicio.guardarHistorial(historialRevision);
+            negocioBD.getHistorialRevisiones().add(historialRevision);
+
+            negocioServicio.actualizarNegocioDirecto(negocioBD);
 
             respuesta = true;
         }
 
         return respuesta;
     }
+
 }

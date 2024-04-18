@@ -1,6 +1,7 @@
 package co.edu.uniquindio.unilocal.test;
 
 import co.edu.uniquindio.unilocal.dto.ActualizacionUsuarioDTO;
+import co.edu.uniquindio.unilocal.dto.DetalleClienteDTO;
 import co.edu.uniquindio.unilocal.dto.RecuperarPasswordDTO;
 import co.edu.uniquindio.unilocal.dto.RegistroUsuarioDTO;
 import co.edu.uniquindio.unilocal.modelo.documentos.Cliente;
@@ -76,7 +77,7 @@ public class ClienteTest {
     @Test
     public void obtenerCliente() {
         try  {
-            Cliente cliente = cLienteServicio.obtenerCliente("1111");
+            DetalleClienteDTO cliente = cLienteServicio.obtenerCliente("1111");
 
             Assertions.assertNotNull(cliente);
         } catch (Exception ex) {

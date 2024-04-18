@@ -26,6 +26,12 @@ public interface NegocioServicio {
     boolean actualizarNegocio(ActualizacionNegocioDTO actualizacionNegocioDTO);
 
     /**
+     * Permite actualizar el negocio
+     * @param negocio
+     */
+    void actualizarNegocioDirecto(Negocio negocio);
+
+    /**
      * Permite eliminar logicamente un negocio
      * @param idNegocio
      * @return
@@ -79,7 +85,6 @@ public interface NegocioServicio {
      * @return true o false
      */
     boolean cambiarEstado(CambiarEstadoDTO cambiarEstadoDTO);
-    double calcularPromedioCalificacion();
 
     /**
      * Permite obtener un negocio directamente de la base de datos
@@ -89,6 +94,13 @@ public interface NegocioServicio {
      * @throws Exception
      */
     Negocio obtenerNegocioDirecto(String codigoNegocio) throws Exception;
+
+    /**
+     * Permite actualizar la fecha de rechazo de un negocio especifico
+     * @param negocio
+     * @throws Exception
+     */
+    void actualizarNegocioRechazo(Negocio negocio) throws Exception;
 
 
 }
