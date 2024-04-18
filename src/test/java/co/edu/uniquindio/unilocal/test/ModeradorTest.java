@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-@Transactional
 public class ModeradorTest {
 
     @Autowired
@@ -20,9 +19,9 @@ public class ModeradorTest {
     public void autorizarRechazarNegocio() {
         try {
             AutorizarRechazarNegocioDTO autorizarRechazarNegocioDTO = new AutorizarRechazarNegocioDTO(
-                    "1111",
-                    "1010",
-                    EstadoNegocio.APROVADO,
+                    "1",
+                    "1",
+                    EstadoNegocio.APROBADO,
                     "Test de autorización"
             );
 

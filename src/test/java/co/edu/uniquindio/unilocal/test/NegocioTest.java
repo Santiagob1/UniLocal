@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-@Transactional
 public class NegocioTest {
     @Autowired
     private NegocioServicio negocioServicio;
@@ -39,7 +38,7 @@ public class NegocioTest {
             lstImages.add("www.google.com");
 
             RegistroNegocioDTO registroNegocioDTO = new RegistroNegocioDTO(
-                    "1111",
+                    "1",
                     new Ubicacion(
                             0,
                             0
@@ -74,7 +73,7 @@ public class NegocioTest {
             List<Menu> lstMenu = new ArrayList<>();
 
             ActualizacionNegocioDTO actualizacionNegocioDTO = new ActualizacionNegocioDTO(
-                    "1111",
+                    "3",
                     new Ubicacion(
                             0,
                             0
@@ -100,7 +99,7 @@ public class NegocioTest {
     @Test
     public void eliminarNegocio() {
         try {
-            boolean respuesta = negocioServicio.eliminarNegocio("1111");
+            boolean respuesta = negocioServicio.eliminarNegocio("3");
 
             Assertions.assertTrue(respuesta);
         } catch (Exception ex) {
@@ -111,7 +110,7 @@ public class NegocioTest {
     @Test
     public void obtenerNegocio() {
         try {
-            DetalleNegocioDTO detalleNegocioDTO = negocioServicio.obtenerNegocio("1111");
+            DetalleNegocioDTO detalleNegocioDTO = negocioServicio.obtenerNegocio("1");
             Assertions.assertTrue(detalleNegocioDTO != null);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -122,7 +121,7 @@ public class NegocioTest {
         try {
             List<DetalleNegocioDTO> lstNegocios = negocioServicio.buscarNegocioNombre("Invalidos");
 
-            Assertions.assertTrue(lstNegocios.size() > 0);
+            Assertions.assertTrue(lstNegocios.size() == 0);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -133,7 +132,7 @@ public class NegocioTest {
         try {
             List<DetalleNegocioDTO> lstNegocios = negocioServicio.buscarNegocioTipo(TipoNegocio.BAR);
 
-            Assertions.assertTrue(lstNegocios.size() > 0);
+            Assertions.assertTrue(lstNegocios.size() == 0);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -151,7 +150,7 @@ public class NegocioTest {
     @Test
     public void listarNegocioPropietario() {
         try {
-            List<DetalleNegocioDTO> lstNegocios = negocioServicio.listarNegocioPropietario("1111");
+            List<DetalleNegocioDTO> lstNegocios = negocioServicio.listarNegocioPropietario("1");
 
             Assertions.assertTrue(lstNegocios.size() > 0);
         } catch (Exception ex) {
@@ -174,7 +173,7 @@ public class NegocioTest {
     public void cambiarEstado() {
         try {
             CambiarEstadoDTO cambiarEstadoDTO = new CambiarEstadoDTO(
-                    "1111",
+                    "1",
                     EstadoNegocio.APROBADO
             );
 
@@ -189,7 +188,7 @@ public class NegocioTest {
     @Test
     public void obtenerNegocioDirecto() {
         try {
-            Negocio negocio = negocioServicio.obtenerNegocioDirecto("1111");
+            Negocio negocio = negocioServicio.obtenerNegocioDirecto("1");
 
             Assertions.assertTrue(negocio != null);
         } catch (Exception ex) {

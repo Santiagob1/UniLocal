@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootTest
-@Transactional
 public class ComentarioTest {
     @Autowired
     private ComentarioServicio comentarioServicio;
@@ -22,10 +21,10 @@ public class ComentarioTest {
     public void crearComentario() {
         try {
             CrearComentarioDTO crearComentarioDTO = new CrearComentarioDTO(
-                    LocalDateTime.now(),
+                    "2024-04-18",
                     1,
-                    "1111",
-                    "111",
+                    "1",
+                    "1",
                     "Test de comentario",
                     "0"
             );
@@ -52,10 +51,10 @@ public class ComentarioTest {
     public void responderComentario() {
         try {
             CrearComentarioDTO crearComentarioDTO = new CrearComentarioDTO(
-                    LocalDateTime.now(),
+                    "2024-04-18",
                     1,
-                    "1111",
-                    "111",
+                    "1",
+                    "1",
                     "Test de responder comentario",
                     "1"
             );

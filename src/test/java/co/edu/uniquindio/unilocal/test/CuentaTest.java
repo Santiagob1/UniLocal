@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-@Transactional
 public class CuentaTest {
     @Autowired
     private CuentaServicio cuentaServicio;
@@ -19,7 +18,7 @@ public class CuentaTest {
     public void inicarSesionCliente() {
         try {
             InicioSesionDTO inicioSesionDTO = new InicioSesionDTO(
-                    "natisnjgs",
+                    "pepe@gmail.com",
                     "1234"
             );
 
@@ -35,7 +34,7 @@ public class CuentaTest {
     public void inicarSesionModerador() {
         try {
             InicioSesionDTO inicioSesionDTO = new InicioSesionDTO(
-                    "moderador1",
+                    "moderador1@gmail.com",
                     "1234"
             );
 

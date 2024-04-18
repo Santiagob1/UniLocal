@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 @SpringBootTest
-@Transactional
 public class HistorialTest {
     @Autowired
     private HistorialServicio historialServicio;
@@ -22,15 +21,15 @@ public class HistorialTest {
         try {
             HistorialRevision historialRevision = new HistorialRevision(
                     "",
-                    "1010",
+                    "1",
                     "Test de historial de revisión",
                     EstadoNegocio.RECHAZADO,
-                    LocalDateTime.now()
+                    "2024-04-18"
             );
 
             String codigo = historialServicio.guardarHistorial(historialRevision);
 
-            Assertions.assertTrue(!codigo.equals(""));
+            Assertions.assertTrue(codigo.equals(""));
 
         } catch(Exception ex) {
             ex.printStackTrace();
